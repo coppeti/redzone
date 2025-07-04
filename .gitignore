@@ -1,0 +1,7 @@
+.venv
+.env
+.idea
+.vscode
+pipfile
+Utilities
+**/__pycache__/
