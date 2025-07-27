@@ -1,0 +1,17 @@
+{
+  "input": {
+    "directory": ".",
+    "extensions": [
+      ".html"
+    ]
+  },
+  "style": {
+    "harmonicRatio": 1.618,
+    "baseValue": "16.5px",
+    "dev": true
+  },
+  "output": {
+    "file": "./layout.css",
+    "minify": false
+  }
+}
