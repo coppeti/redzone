@@ -1,4 +1,4 @@
-from decouple import config
+from decouple import config  # type: ignore
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.

@@ -5,14 +5,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.png' %}" >
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <title>{% block title %}{% endblock title %} | Red Zone</title>
 </head>
 <body>
+    <header>
+        <div id="header-container">
+            <div id="logo"><img src="{% static 'img/rz_logo_3d.png' %}" alt="3D Red Zone logo"></div>
+            <nav>
+                <a href="#">Home</a>
+                <a href="#">Galery</a>
+                <a href="#">Red zone</a>
+            </nav>
+        </div>
+    </header>
+    <main>
 
-    {% block content %}
+        {% block content %}
 
-    {% endblock content %}
+        {% endblock content %}
 
-
+    </main>
 </body>
 </html>
