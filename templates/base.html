@@ -8,19 +8,22 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <title>{% block title %}{% endblock title %} | Red Zone</title>
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script src="{% static 'js/carousel.js' %}"></script>
 </head>
 <body>
-    <header>
-        <div id="header-container">
-            <div id="logo"><img src="{% static 'img/rz_logo_3d.png' %}" alt="3D Red Zone logo"></div>
-            <nav>
-                <a href="#">Home</a>
-                <a href="#">Galery</a>
-                <a href="#">Red zone</a>
+    <!--  Header sticky  -->
+    <header class="sticky-header">
+        <div class="header-content">
+            <h1 class="logo">LOGO</h1>
+            <nav class="menu">
+                <a href="{% url 'home' %}" class="menu-item active">Home</a>
+                <a href="{% url 'gallery' %}" class="menu-item">Gallery</a>
+                <a href="{% url 'red_zone' %}" class="menu-item">Red Zone</a>
             </nav>
         </div>
     </header>
-    <main>
+
+    <main class="main-content">
 
         {% block content %}
 
