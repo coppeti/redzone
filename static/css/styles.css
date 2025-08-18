@@ -49,23 +49,16 @@ body {
     background-color: rgba(0, 0, 0, 0.95);
 /*     border-bottom: 2px solid #ff0000;
  */    z-index: 1000;
-    backdrop-filter: blur(10px);
-}
+/*     backdrop-filter: blur(10px);
+ */}
 
 .header-content {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: end;
     padding: 1rem 2rem;
     max-width: 1400px;
     margin: 0 auto;
-}
-
-.logo {
-    color: #ff0000;
-    font-size: 2.5rem;
-    font-weight: bold;
-    letter-spacing: 2px;
 }
 
 /* Menu de navigation */
