@@ -19,19 +19,29 @@
             <div class="carousel-wrapper" x-ref="wrapper">
                 <div class="carousel-track"
                      x-ref="track"
-                     @mousedown="handleMouseDown($event)"
-                     @mousemove="handleMouseMove($event)"
-                     @mouseup="handleMouseUp($event)"
-                     @mouseleave="handleMouseUp($event)"
                      @touchstart="handleTouchStart($event)"
                      @touchmove="handleTouchMove($event)"
                      @touchend="handleTouchEnd($event)">
                     {% for image in bikers_images %}
-                    <div class="card">
-                        <img src="{% static image %}" alt="Biker {{ forloop.counter }}" class="card-image">
-                        <div class="card-overlay">
-<!--                             <h3 class="card-title">Membre #{{ forloop.counter }}</h3>
- -->                        </div>
+                    <div class="card" @click="flipCard({{ forloop.counter0 }})">
+                        <div class="card-inner" :class="{ 'flipped': isCardFlipped({{ forloop.counter0 }}) }">
+                            <!-- Face avant -->
+                            <div class="card-front">
+                                <img src="{% static image %}" alt="Biker {{ forloop.counter }}" class="card-image">
+                            </div>
+                            <!-- Face arrière -->
+                            <div class="card-back">
+                                <img src="{% static 'img/raw_card_verso.jpg' %}" alt="Card back" class="card-back-image">
+                                <div class="card-back-content">
+                                    <h3 class="card-back-title">Membre #{{ forloop.counter }}</h3>
+                                    <p class="card-back-text">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                        Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     {% endfor %}
                 </div>

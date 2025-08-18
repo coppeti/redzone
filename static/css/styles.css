@@ -31,6 +31,11 @@ body {
     font-family: Arial, sans-serif;
     overflow-x: hidden;
 }
+
+@font-face {
+  font-family: 'LivingHell';
+  src: url('../font/Living_Hell.ttf') format('truetype');
+}
 /* END GENERAL */
 
 /* HEADER */
@@ -42,8 +47,8 @@ body {
     left: 0;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.95);
-    border-bottom: 2px solid #ff0000;
-    z-index: 1000;
+/*     border-bottom: 2px solid #ff0000;
+ */    z-index: 1000;
     backdrop-filter: blur(10px);
 }
 
@@ -103,8 +108,8 @@ body {
 
 /* Section principale */
 .main-content {
-    margin-top: 100px;
-    height: calc(100vh - 100px);
+    margin-top: 150px;
+    height: calc(100vh - 150px);
     display: flex;
     align-items: center;
     padding: 80px;
@@ -152,18 +157,96 @@ body {
 /* Cartes avec ratio 681:1000 */
 .card {
     flex-shrink: 0;
-    background-color: #1a1a1a;
+    position: relative;
+    perspective: 1000px;
+/*     background-color: #1a1a1a;
     border: 1px solid #ff0000;
     border-radius: 50px;
-    overflow: hidden;
+ */    overflow: hidden;
     position: relative;
     transition: opacity 0.3s ease, box-shadow 0.3s ease;
     opacity: 0.8;
+    cursor: pointer;
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+
+/* Styles pour l'effet de retournement */
+
+.card-back-content {
+    position: relative;
+    z-index: 1;
+    padding: 3rem 2rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.card-back-title {
+    color: #ff0000;
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 2rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.card-back-text {
+    color: #ff0000;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    max-width: 80%;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+
+.card-inner.flipped {
+    transform: rotateY(180deg);
+}
+
+.card-inner.flipping {
+    pointer-events: none;
 }
 
 .card:hover {
     opacity: 1;
-    box-shadow: 10px 10px 20px 0 rgba(58, 58, 58, 0.6);
+/*     box-shadow: 10px 10px 20px 0 rgba(58, 58, 58, 0.6);
+ */}
+
+.card-front,
+.card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+/*     border: 1px solid #ff0000;
+    border-radius: 50px;
+ */    overflow: hidden;
+/*     background-color: #1a1a1a;
+ */}
+
+.card-front {
+    z-index: 2;
+}
+
+.card-back {
+    transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    position: relative;
 }
 
 .card-image {
@@ -173,6 +256,16 @@ body {
     object-position: center;
     display: block;
 }
+
+.card-back-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+/*     opacity: 0.3;
+ */}
 
 .card-overlay {
     position: absolute;
@@ -321,4 +414,28 @@ body {
 .carousel-wrapper {
     -ms-overflow-style: none;
     scrollbar-width: none;
+}
+
+
+/*** NEW ***/
+/* Désactiver le curseur grab sur desktop */
+@media (min-width: 769px) {
+    .carousel-track {
+        cursor: default;
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .card-back-title {
+        font-size: 1.8rem;
+    }
+
+    .card-back-text {
+        font-size: 1rem;
+    }
+
+    .card-back-content {
+        padding: 2rem 1.5rem;
+    }
 }
