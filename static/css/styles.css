@@ -28,7 +28,7 @@ img {
 body {
     background-color: #000000;
     color: #ff0000;
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins-extralight', sans-serif;
     overflow-x: hidden;
 }
 
@@ -38,12 +38,23 @@ body {
 }
 
 @font-face {
-    font-family: 'Tarantino';
-    src: url('../font/Tarantino.ttf') format('truetype');
+    font-family: 'Poppins-extralight';
+    src: url('../font/Poppins-ExtraLight.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Poppins-light';
+    src: url('../font/Poppins-Light.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Poppins-medium';
+    src: url('../font/Poppins-Medium.ttf') format('truetype');
 }
 
 .title {
     padding: 40px 0 40px 0;
+    font-family: 'Poppind-medium', sans-serif;
 }
 
 /* END GENERAL */
@@ -78,8 +89,8 @@ body {
 .menu-item {
     color: #ff0000;
     text-decoration: none;
-    font-size: 1.1rem;
-    font-weight: 500;
+    font-size: 1.3rem;
+    font-family: 'Poppins-light', sans-serif;
     transition: all 0.3s ease;
     position: relative;
     padding: 0.5rem 1rem;
@@ -342,44 +353,49 @@ body {
 }
 
 .label-redzone {
+    font-family: 'Poppins-light', sans-serif;
+    font-size: 1.1rem;
 }
 
 .input-redzone {
     padding: 5px;
     width: 50%;
-    height: 1.9rem;
-    border: 1px solid #ff0000;
+    height: 2.2rem;
+    border: 2px solid #ff0000;
     border-radius: 5%;
     background-color: #1f1f1f;
+    font-family: 'Poppins-light', sans-serif;
+    font-size: 1.1rem;
     color: #ff0000;
 }
 
 .button-redzone {
-    background-color: #ff0000; /* Rouge intense */
-    color: #ffffff; /* Texte blanc */
-    border: 2px solid #ff0000; /* Bordure rouge */
-    border-radius: 5px; /* Coins légèrement arrondis */
+    background-color: #ff0000;
+    color: #ffffff;
+    border: 2px solid #ff0000;
+    border-radius: 5px;
     margin-top: 20px;
-    padding: 10px 20px; /* Plus de confort */
-    font-size: 1rem; /* Taille lisible */
-    font-weight: bold; /* Pour un texte un peu plus marqué */
-    cursor: pointer; /* Indique qu'il est cliquable */
-    transition: all 0.3s ease; /* Animation douce pour hover/focus */
+    padding: 5px 20px;
+    font-family: 'Poppins-light', sans-serif;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 .button-redzone:hover {
-    background-color: #1f1f1f; /* Passe au noir au survol */
-    color: #ff0000; /* Texte rouge */
-    border: 2px solid #ff0000; /* Bordure reste rouge */
+    background-color: #1f1f1f;
+    color: #ff0000;
+    border: 2px solid #ff0000;
 }
 
 .button-redzone:active {
-    transform: scale(0.95); /* Ajout d'un effet de clic */
+    transform: scale(0.95);
 }
 
 .button-redzone:focus {
-    outline: none; /* Supprime l'effet focus par défaut */
-    box-shadow: 0 0 10px #ff0000; /* Ajoute un halo rouge */
+    outline: none;
+    box-shadow: 0 0 10px #ff0000;
 }
 
 
