@@ -19,9 +19,9 @@
             <a href="http://redzoneteam.ch" target="_self"><img src="{% static 'img/logo_redzone.png' %}"
                     alt="Logo Red Zone" /></a>
             <nav class="menu">
-                <a href="{% url 'home' %}" class="menu-item active">Home</a>
-                <a href="{% url 'gallery' %}" class="menu-item">Gallery</a>
-                <a href="{% url 'red_zone' %}" class="menu-item">Red Zone</a>
+                <a href="{% url 'home' %}" class="menu-item {% block home_active %}{% endblock %}">Home</a>
+                <a href="{% url 'gallery' %}" class="menu-item {% block gallery_active %}{% endblock %}">Gallery</a>
+                <a href="{% url 'redzone' %}" class="menu-item {% block redzone_active %}{% endblock %}">Red Zone</a>
             </nav>
         </div>
     </header>

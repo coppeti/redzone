@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Red zone
+{% endblock title %}
+
+
+{% block redzone_active %}
+    active
+{% endblock redzone_active %}
+
+
+{% block content %}
+<div class="container-redzone">
+    <h1 class="title">La Red Zone est réservée aux membres</h1>
+        <form class="form-redzone" method="post" action="{% url 'redzone' %}">
+            {% csrf_token %}
+            <div class="form-row-redzone">
+                <label class="label-redzone" for="id_username">Adresse Email :</label>
+                <input class="input-redzone" type="email" name="username" id="id_username" required>
+            </div>
+            <div class="form-row-redzone">
+                <label class="label-redzone" for="id_password">Mot de passe :</label>
+                <input class="input-redzone" type="password" name="password" id="id_password" required>
+            </div>
+            <button class="button-redzone" type="submit">Full gaz</button>
+        </form>
+
+</div>
+
+{% endblock content %}
+
