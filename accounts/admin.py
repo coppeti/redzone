@@ -6,8 +6,8 @@ from .models import CustomUser
 class CustomUserAdmin(UserAdmin):
     model = CustomUser
     list_display = (
-        "email",
         "firstname",
+        "email",
         "rank",
         "nickname",
         "aka1",
@@ -19,22 +19,23 @@ class CustomUserAdmin(UserAdmin):
         "is_superuser",
     )
     search_fields = ("email", "firstname", "nickname")
-    ordering = ("email",)
+    ordering = ("firstname",)
 
     # Modification des champs pour l'administration
     fieldsets = (
-        (None, {"fields": ("email", "password")}),
+        (None, {"fields": ("firstname", "password")}),
         (
             "Informations personnelles",
             {
                 "fields": (
-                    "firstname",
+                    "email",
                     "rank",
                     "nickname",
                     "aka1",
                     "aka2",
                     "aka3",
                     "aka4",
+                    "description",
                     "picture",
                 )
             },
@@ -46,16 +47,17 @@ class CustomUserAdmin(UserAdmin):
             None,
             {
                 "fields": (
+                    "firstname",
                     "email",
                     "password1",
                     "password2",
-                    "firstname",
                     "rank",
                     "nickname",
                     "aka1",
                     "aka2",
                     "aka3",
                     "aka4",
+                    "description",
                     "picture",
                 ),
             },

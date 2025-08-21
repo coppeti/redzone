@@ -25,22 +25,24 @@
                      @touchstart="handleTouchStart($event)"
                      @touchmove="handleTouchMove($event)"
                      @touchend="handleTouchEnd($event)">
-                    {% for image in bikers_images %}
+                    {% for biker in bikers %}
                     <div class="card" @click="flipCard({{ forloop.counter0 }})">
                         <div class="card-inner" :class="{ 'flipped': isCardFlipped({{ forloop.counter0 }}) }">
                             <!-- Face avant -->
                             <div class="card-front">
-                                <img src="{% static image %}" alt="Biker {{ forloop.counter }}" class="card-image">
+                                <img src="{{ biker.picture.url }}" alt="{{ biker.nickname}}" class="card-image">
                             </div>
                             <!-- Face arrière -->
                             <div class="card-back">
                                 <img src="{% static 'img/raw_card_verso.jpg' %}" alt="Card back" class="card-back-image">
                                 <div class="card-back-content">
-                                    <h3 class="card-back-title">Membre #{{ forloop.counter }}</h3>
+                                    <h3 class="card-back-title">{{ biker.nickname }}</h3>
+                                    <h3 class="card-back-subtitle">{% if biker.aka1 %}<span class="aka">aka</span> {{ biker.aka1 }}{% endif %}</h3>
+                                    <h3 class="card-back-subtitle">{% if biker.aka2 %}<span class="aka">aka</span> {{ biker.aka2 }}{% endif %}</h3>
+                                    <h3 class="card-back-subtitle">{% if biker.aka3 %}<span class="aka">aka</span> {{ biker.aka3 }}{% endif %}</h3>
+                                    <h3 class="card-back-subtitle">{% if biker.aka4 %}<span class="aka">aka</span> {{ biker.aka4 }}{% endif %}</h3>
                                     <p class="card-back-text">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                        Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
+                                        {{ biker.description }}
                                     </p>
                                 </div>
                             </div>

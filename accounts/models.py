@@ -44,6 +44,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     aka2 = models.CharField(max_length=100, blank=True, verbose_name="Alias 2")
     aka3 = models.CharField(max_length=100, blank=True, verbose_name="Alias 3")
     aka4 = models.CharField(max_length=100, blank=True, verbose_name="Alias 4")
+    description = models.TextField(blank=True, verbose_name="Présentation")
     picture = models.ImageField(
         upload_to="members/", blank=True, verbose_name="Photo"
     )  # Champ pour stocker la photo
@@ -65,4 +66,4 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         verbose_name_plural = "Utilisateurs"
 
     def __str__(self):
-        return self.email
+        return self.firstname
