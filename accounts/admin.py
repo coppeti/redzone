@@ -8,6 +8,7 @@ class CustomUserAdmin(UserAdmin):
     list_display = (
         "email",
         "firstname",
+        "rank",
         "nickname",
         "aka1",
         "aka2",
@@ -28,6 +29,7 @@ class CustomUserAdmin(UserAdmin):
             {
                 "fields": (
                     "firstname",
+                    "rank",
                     "nickname",
                     "aka1",
                     "aka2",
@@ -48,6 +50,7 @@ class CustomUserAdmin(UserAdmin):
                     "password1",
                     "password2",
                     "firstname",
+                    "rank",
                     "nickname",
                     "aka1",
                     "aka2",
