@@ -57,6 +57,13 @@ body {
     font-family: 'Poppins-medium', sans-serif;
 }
 
+footer {
+    display: flex;
+    justify-content: center;
+    height: 30px;
+    font-size: 0.7rem;
+}
+
 /* END GENERAL */
 
 
@@ -121,7 +128,7 @@ body {
 /* Section principale */
 .main-content {
     margin-top: 196px;
-    height: calc(100vh - 196px);
+    height: calc(100vh - 196px - 30px);
     display: flex;
     box-sizing: border-box;
 }
