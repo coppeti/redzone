@@ -5,3 +5,4 @@
 pipfile
 Utilities
 **/__pycache__/
+.python-version
