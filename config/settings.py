@@ -12,9 +12,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config("DEBUG")
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1", "redzoneteam.ch", "62.72.36.16"]
+
+CSRF_TRUSTED_ORIGINS = config("CSRF_TRUSTED_ORIGINS")
 
 
 # Application definition
@@ -38,6 +40,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
