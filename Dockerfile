@@ -16,8 +16,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-# Collecte des fichiers statiques
-RUN python manage.py collectstatic --noinput
 
 # Exposition du port par défaut de Django
 EXPOSE 8000
