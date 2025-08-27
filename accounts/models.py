@@ -33,7 +33,7 @@ class CustomUserManager(BaseUserManager):
 # Modèle utilisateur personnalisé
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True, verbose_name="Adresse email")
-    rank = models.IntegerField(max_length=2, default=99, verbose_name="Rang")
+    rank = models.IntegerField(default=99, verbose_name="Rang")
     firstname = models.CharField(
         max_length=30, blank=True, verbose_name="Prénom"
     )
