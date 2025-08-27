@@ -16,9 +16,14 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-# On enlève collectstatic d'ici !
+# Collecte des fichiers statiques
+RUN python manage.py collectstatic --noinput
 
+# Exposition du port par défaut de Django
 EXPOSE 8000
 
-# On fait collectstatic au démarrage à la place
-CMD python manage.py collectstatic --noinput && gunicorn --bind 0.0.0.0:8000 config.wsgi:application
+# Commande de démarrage directe avec Gunicorn
+CMD ["gunicorn",
+     "--bind", "0.0.0.0:8000",
+     "--workers", "3",
+     "config.wsgi:application"]
