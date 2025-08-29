@@ -6,3 +6,4 @@
 Utilities
 **/__pycache__/
 .python-version
+db.sqlite3
