@@ -3,7 +3,6 @@
 .idea
 .vscode
 .DS_Store
-pipfile
 Utilities
 **/__pycache__/
 .python-version
