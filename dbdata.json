@@ -1,0 +1,822 @@
+[
+{
+    "model": "sessions.session",
+    "pk": "jzu4dqglie1ufazww51q1uf74v202931",
+    "fields": {
+        "session_data": ".eJxVjMsOwiAQRf-FtSHQ4enSvd9ABhikaiAp7cr479qkC93ec859sYDbWsM2aAlzZmcm2el3i5ge1HaQ79hunafe1mWOfFf4QQe_9kzPy-H-HVQc9VtP4FUSNgJSFkmbKBVGpYy3MkoA44oztpCWmVSZrNAlA3iTNPriwBB7fwDRXDeA:1uoehs:W4hjPHHyG8KQsCj3McCfP9suyUPcA-AOfDHsBKwA20E",
+        "expire_date": "2025-09-03T09:02:08.731Z"
+    }
+},
+{
+    "model": "accounts.customuser",
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$7ZWwOr5daWywUTzh8ZawhV$URtZ9e5/tKSk5MsnJ28V+IjSfu6zU0KaP4/wnJv+nco=",
+        "last_login": "2025-08-20T09:02:08.731Z",
+        "email": "eco@ik.me",
+        "rank": 14,
+        "firstname": "etienne",
+        "nickname": "le couz",
+        "aka1": "",
+        "aka2": "",
+        "aka3": "",
+        "aka4": "",
+        "description": "Quisque sed tortor luctus, ullamcorper metus quis, luctus sem. Proin at erat est. Quisque sem erat, volutpat at pellentesque in, rutrum sit amet lorem. Phasellus viverra iaculis iaculis. Duis vel urna eu dui elementum lobortis. Ut quam ipsum, laoreet lobortis diam sit amet, facilisis bibendum urna. Quisque at ex et tortor blandit varius. Aliquam placerat eleifend sagittis. Nullam auctor non est quis sagittis. Proin vel ipsum risus. Ut elementum porta dui, eget egestas urna dignissim non. Etiam a libero condimentum, porttitor purus vel, sollicitudin neque. Suspendisse potenti. Praesent quis quam viverra, venenatis nibh sit amet, pretium orci. Proin et velit quis odio consequat lacinia et at arcu. Proin semper venenatis metus eget congue.",
+        "picture": "members/couz_card.jpg",
+        "is_active": true,
+        "is_staff": true,
+        "is_superuser": true,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "accounts.customuser",
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$v1wv7xLBsRHZnINeb9wFJL$MDOsuXdypVA8vGeC3kXhGqR2PbqvcC/8lyiZjNAUoWI=",
+        "last_login": null,
+        "email": "issler@il-a.ch",
+        "rank": 1,
+        "firstname": "arik",
+        "nickname": "el presidente",
+        "aka1": "le dictateur",
+        "aka2": "",
+        "aka3": "",
+        "aka4": "",
+        "description": "Morbi facilisis, nunc a aliquam porta, massa ipsum elementum mauris, sit amet rhoncus purus ipsum ac enim. Proin ac porttitor dolor, non viverra lectus. Praesent vehicula tristique metus, vitae fermentum felis placerat ac. Proin at ipsum a ipsum placerat mattis et ultrices metus. In hac habitasse platea dictumst. Nulla semper ex hendrerit justo venenatis feugiat. Sed sit amet vehicula diam. Duis consectetur sit amet metus sed malesuada. Maecenas eu enim at mi vehicula posuere. Morbi dignissim sagittis lectus at vestibulum. Vivamus vel pellentesque orci.",
+        "picture": "members/president_card.jpg",
+        "is_active": true,
+        "is_staff": false,
+        "is_superuser": false,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "accounts.customuser",
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$nAc9MwMFEH06mRcHE0WrlN$UHzf01pNw2TErCd5UnzRiDOYoJFFLSnmzKGcX248cdQ=",
+        "last_login": null,
+        "email": "anicolet@bluemail.ch",
+        "rank": 3,
+        "firstname": "alex",
+        "nickname": "barnes",
+        "aka1": "la secrétoche",
+        "aka2": "",
+        "aka3": "",
+        "aka4": "",
+        "description": "Vivamus sagittis felis vitae metus consectetur, ac mattis neque facilisis. Aliquam at elementum erat. Fusce vel rhoncus ex, rhoncus laoreet turpis. Aliquam egestas faucibus justo, ut hendrerit massa semper nec. Curabitur mi odio, rhoncus at tincidunt id, vehicula vitae diam. Vestibulum facilisis elit semper dui egestas dapibus. Vestibulum at dictum lacus. Duis et vestibulum lorem, ut vehicula orci. Proin euismod interdum tellus, quis dictum erat dapibus blandit. Phasellus at ultricies massa, non aliquam nisi. Integer venenatis diam non est consectetur, eget euismod eros cursus.",
+        "picture": "members/barnes_card.jpg",
+        "is_active": true,
+        "is_staff": false,
+        "is_superuser": false,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "accounts.customuser",
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$eY5G43NEbKGYsaAzrMzNWO$vH9I0tvn6sfih2jRl4IRBRppkLVb03wEZrN+awigvek=",
+        "last_login": null,
+        "email": "ybuehner@bluewin.ch",
+        "rank": 2,
+        "firstname": "yvan",
+        "nickname": "president du vice",
+        "aka1": "el chicharon",
+        "aka2": "hermano",
+        "aka3": "dexter",
+        "aka4": "",
+        "description": "Donec in odio orci. Aenean suscipit mattis auctor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nullam sed malesuada purus, a ultricies lectus. Donec nec fermentum ligula. Morbi mattis sit amet nunc eu finibus. In viverra diam eget porta ultrices. Maecenas faucibus tellus sem, nec fermentum erat malesuada at. Vestibulum pharetra quam eu ante fermentum, et commodo magna efficitur. Donec vitae ultrices urna. Etiam congue consectetur est at venenatis. Praesent pulvinar posuere suscipit.",
+        "picture": "members/dex_card.jpg",
+        "is_active": true,
+        "is_staff": false,
+        "is_superuser": false,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "accounts.customuser",
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$jBR69grJos8d1NJJluccX1$3qVAWuX02ibcKSFAU5DhbGU1Y9dcbPqqZyxozIOa0QA=",
+        "last_login": null,
+        "email": "phmuggli@gmail.com",
+        "rank": 4,
+        "firstname": "Phil",
+        "nickname": "le banquier",
+        "aka1": "elias",
+        "aka2": "",
+        "aka3": "",
+        "aka4": "",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam consectetur facilisis magna aliquam maximus. Suspendisse vel elit convallis, dictum urna id, maximus felis. Proin nulla urna, pellentesque non dignissim ut, laoreet finibus velit. Nullam condimentum dapibus quam a rhoncus. Fusce volutpat elit ante, sed malesuada orci condimentum eu. Fusce non lacus ut neque finibus pretium. Ut ac dolor a nulla mollis lobortis. Donec molestie bibendum dui, efficitur fringilla ex laoreet quis. Phasellus eget diam quis nisi facilisis lobortis.",
+        "picture": "members/elias_card.jpg",
+        "is_active": true,
+        "is_staff": false,
+        "is_superuser": false,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "accounts.customuser",
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$IyTNnrKyxqQcbMXk1XGq2t$XRv+9OGQqDz/DZO938nMGRICaH52pMzqlyk160Cpkdk=",
+        "last_login": null,
+        "email": "dchamoso@bluewin.ch",
+        "rank": 5,
+        "firstname": "David",
+        "nickname": "caribou de marseille",
+        "aka1": "junior",
+        "aka2": "",
+        "aka3": "",
+        "aka4": "",
+        "description": "Suspendisse in dui et odio pretium aliquam vel eget ante. Aenean pellentesque tincidunt mauris ut gravida. Nullam fermentum sem at enim mollis tincidunt. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec ut congue lectus. Phasellus dignissim consectetur sodales. Maecenas congue leo lorem, a lacinia lorem ultricies nec. In mollis orci non dui pulvinar ullamcorper. Duis congue convallis mauris, quis interdum neque bibendum eget. Pellentesque vel sagittis erat, quis auctor risus. Mauris nec nunc euismod, convallis odio at, consequat tortor. Maecenas tristique pharetra lectus eu tempus. Praesent pellentesque enim et pretium consequat. Proin pretium enim vel lectus sollicitudin pellentesque vel tincidunt enim. Praesent auctor lectus vehicula finibus fringilla. Phasellus eget fringilla risus.",
+        "picture": "members/junior_card.jpg",
+        "is_active": true,
+        "is_staff": false,
+        "is_superuser": false,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "accounts.customuser",
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$cPGmSORk28REXpNDXNaNfE$QDDR52VxX7+uE3Z4aWnVvQkYuo0+dXYd26hAyayinWA=",
+        "last_login": null,
+        "email": "chassot.luc@bluewin.ch",
+        "rank": 6,
+        "firstname": "luc",
+        "nickname": "skywalker",
+        "aka1": "",
+        "aka2": "",
+        "aka3": "",
+        "aka4": "",
+        "description": "Praesent tincidunt vestibulum quam eu suscipit. Nullam non suscipit turpis. Vestibulum imperdiet urna in justo pharetra interdum. Etiam hendrerit vehicula enim ut tristique. Nullam cursus bibendum tristique. In efficitur fermentum lectus sed sodales. Quisque tortor lorem, elementum quis luctus vel, fringilla et metus. Morbi maximus, ligula sed lacinia malesuada, libero enim bibendum lorem, id malesuada nisl nunc eu neque. Pellentesque eleifend vestibulum leo, ac ultrices risus congue id. Ut dictum nisl quis tempor fermentum.",
+        "picture": "members/sky_card.jpg",
+        "is_active": true,
+        "is_staff": false,
+        "is_superuser": false,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "accounts.customuser",
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$8DMFgNJaSQHcWIZZo9tz6h$i2AlUFAx1t+DCO+FcTW4xYRLTw/6s7agLZ4jaHVsdII=",
+        "last_login": null,
+        "email": "Laurent@fonfi.com",
+        "rank": 7,
+        "firstname": "fonfi",
+        "nickname": "fonfi",
+        "aka1": "",
+        "aka2": "",
+        "aka3": "",
+        "aka4": "",
+        "description": "Mauris mollis nisl in ante mollis congue. Donec turpis enim, fringilla quis iaculis et, dignissim ut sem. Vestibulum ac quam nunc. Donec maximus varius purus, sit amet feugiat est convallis ac. Morbi volutpat, nisi nec faucibus maximus, nisi sem consectetur mauris, quis dapibus erat dui ac quam. Morbi est erat, tempor id dolor eu, lacinia hendrerit nisi. Aenean enim quam, lacinia vitae orci ac, tincidunt volutpat metus. Sed eu iaculis orci.",
+        "picture": "members/fonfi_card.jpg",
+        "is_active": true,
+        "is_staff": false,
+        "is_superuser": false,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "accounts.customuser",
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$Euk2aePAK5ZOcwddaSItcs$z1X5bSHSf0gKGgmzFJtsEYFI130E+XaRlhIarG6iNnU=",
+        "last_login": null,
+        "email": "jm.gonin@bluewin.ch",
+        "rank": 9,
+        "firstname": "jean-marc",
+        "nickname": "ndj",
+        "aka1": "",
+        "aka2": "",
+        "aka3": "",
+        "aka4": "",
+        "description": "Sed iaculis nunc vel lectus hendrerit, rhoncus sollicitudin nisl vulputate. Nunc cursus venenatis sodales. Proin sit amet neque vel mauris mollis porta. Donec efficitur blandit magna non porta. In hac habitasse platea dictumst. Suspendisse enim velit, consequat at justo at, viverra varius ipsum. In elementum lorem dolor, quis ultricies urna dignissim vitae. Suspendisse potenti. Fusce augue augue, posuere sit amet neque ut, dignissim pulvinar tortor. Quisque suscipit dolor in blandit maximus. Vestibulum sed bibendum tortor, vel cursus tellus. Pellentesque non elit auctor, consectetur libero a, eleifend nunc.",
+        "picture": "members/ndj_card.jpg",
+        "is_active": true,
+        "is_staff": false,
+        "is_superuser": false,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "accounts.customuser",
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$pgaSCDM0sQJkwrYo0iUlgX$wNvpX9wbDR9knkkoa6v1bDVM00ARj4sI/nBMMLpR8TI=",
+        "last_login": null,
+        "email": "fred.lannez73@gmail.com",
+        "rank": 10,
+        "firstname": "fred",
+        "nickname": "momo",
+        "aka1": "",
+        "aka2": "",
+        "aka3": "",
+        "aka4": "",
+        "description": "Donec nunc magna, porttitor a quam ut, lacinia vestibulum arcu. Integer eleifend eleifend felis, sit amet porta sem sagittis vitae. Aenean quis sem et erat laoreet vulputate. Curabitur pulvinar, nunc a aliquam fermentum, nibh eros vehicula purus, quis commodo felis diam dignissim erat. Curabitur augue risus, cursus id elit vestibulum, hendrerit egestas tortor. Ut vestibulum tellus at sapien molestie, vel porta purus porta. Duis porta ante aliquam elementum pulvinar. Fusce ac ex condimentum metus suscipit scelerisque vel ac turpis. In nunc urna, porttitor at pellentesque in, interdum mollis sem. Morbi eros mauris, vulputate vitae sodales non, efficitur a velit. In posuere, est ac placerat condimentum, quam magna malesuada odio, quis rhoncus nisl velit nec ligula. Mauris laoreet elit nunc, eu cursus nunc facilisis eu. Nullam lobortis mattis laoreet. Suspendisse placerat cursus vestibulum. Integer dapibus eget ipsum sed tristique.",
+        "picture": "members/momo_card.jpg",
+        "is_active": true,
+        "is_staff": false,
+        "is_superuser": false,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "accounts.customuser",
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$bcMiourxXhVB6kZXCAyaY4$dA+DoswZU4U5KSMXzNSOXIVXNFT2+Y2sumGTq5JfnqI=",
+        "last_login": null,
+        "email": "decio.margarido@gmail.com",
+        "rank": 8,
+        "firstname": "decio",
+        "nickname": "komak",
+        "aka1": "",
+        "aka2": "",
+        "aka3": "",
+        "aka4": "",
+        "description": "Fusce in ultricies nisl. Praesent metus mi, dapibus quis pretium a, mollis in turpis. Fusce eu felis dui. Aenean semper finibus ipsum. Pellentesque pulvinar neque non dolor malesuada commodo. Pellentesque ut ligula faucibus, venenatis ex et, maximus nisl. Aenean quis velit ut erat scelerisque vulputate. Etiam facilisis tincidunt urna, nec lacinia est tincidunt vitae. Pellentesque nec eleifend massa.",
+        "picture": "members/komak_card.jpg",
+        "is_active": true,
+        "is_staff": false,
+        "is_superuser": false,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "accounts.customuser",
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$0Lgb2ojSU9xY9y2pEAHiUs$r5bt8Yr+ZZB0U8U67NwM8ifjpx94V/eb8g/XWDWQ3BE=",
+        "last_login": null,
+        "email": "rmkc@hispeed.ch",
+        "rank": 11,
+        "firstname": "robi",
+        "nickname": "very old man",
+        "aka1": "",
+        "aka2": "",
+        "aka3": "",
+        "aka4": "",
+        "description": "Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Praesent sit amet mauris nec mauris pulvinar pretium non eget justo. Duis a dignissim lectus, vel tempor lacus. Ut nec tellus nisl. Donec sem augue, mattis eu hendrerit non, ultrices eget leo. Suspendisse potenti. Vestibulum laoreet nunc in faucibus facilisis. Donec faucibus congue orci, a vehicula est pharetra id. In mollis auctor porta. Nam feugiat eu tellus sed aliquam.",
+        "picture": "members/vom_card.jpg",
+        "is_active": true,
+        "is_staff": false,
+        "is_superuser": false,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "accounts.customuser",
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$tSSaVoIENJkVONg7aZ9fIG$xKxTLth3ig6vSNHLLbg6qUlFlxzKfkRcqeyfI6g1N7c=",
+        "last_login": null,
+        "email": "christophe.roy@lausanne.ch",
+        "rank": 12,
+        "firstname": "christophe",
+        "nickname": "pinot",
+        "aka1": "",
+        "aka2": "",
+        "aka3": "",
+        "aka4": "",
+        "description": "Sed orci purus, euismod non dictum vel, porta at tellus. Vestibulum pulvinar blandit turpis, ut volutpat mauris facilisis eget. Quisque pharetra nisi vel accumsan maximus. Donec cursus hendrerit convallis. Aenean libero enim, iaculis vel orci ac, ornare venenatis lacus. Phasellus blandit id ipsum ac fringilla. Proin tristique nulla sit amet magna suscipit, non consequat elit mattis. Vivamus posuere ipsum ut leo ornare sollicitudin.",
+        "picture": "members/pinot_card.jpg",
+        "is_active": true,
+        "is_staff": false,
+        "is_superuser": false,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "accounts.customuser",
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$0DsefrCNWgZ17JXbd8mjMU$AJN2CgiJ+3Iss7ilM5hdA5ezQ0Wq/UPDA/abWiIINTQ=",
+        "last_login": null,
+        "email": "proy@camandona.ch",
+        "rank": 13,
+        "firstname": "patrick",
+        "nickname": "kaki",
+        "aka1": "",
+        "aka2": "",
+        "aka3": "",
+        "aka4": "",
+        "description": "Nam pretium libero ut quam dapibus, non pellentesque metus ornare. Integer commodo vitae metus at viverra. Vivamus laoreet sem id fringilla laoreet. Nulla interdum nisi vel lectus aliquet congue. Quisque sit amet tincidunt risus. Fusce vel maximus nisl. Etiam imperdiet sem ligula, vel scelerisque massa gravida sed. Morbi pellentesque venenatis nulla, at placerat justo ultricies non. Sed placerat efficitur diam, eu bibendum tellus tempus eget. Sed efficitur quis dui posuere laoreet. Integer dignissim, tortor a viverra finibus, lacus nunc varius mi, id luctus velit massa sed est. Vivamus quis diam non odio bibendum congue quis quis dui.",
+        "picture": "members/kaki_card.jpg",
+        "is_active": true,
+        "is_staff": false,
+        "is_superuser": false,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 1,
+    "fields": {
+        "action_time": "2025-08-21T08:06:43.924Z",
+        "user": [
+            "eco@ik.me"
+        ],
+        "content_type": [
+            "accounts",
+            "customuser"
+        ],
+        "object_id": "2",
+        "object_repr": "issler@il-a.ch",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 2,
+    "fields": {
+        "action_time": "2025-08-21T08:07:17.792Z",
+        "user": [
+            "eco@ik.me"
+        ],
+        "content_type": [
+            "accounts",
+            "customuser"
+        ],
+        "object_id": "1",
+        "object_repr": "eco@ik.me",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Photo\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 3,
+    "fields": {
+        "action_time": "2025-08-21T08:09:40.331Z",
+        "user": [
+            "eco@ik.me"
+        ],
+        "content_type": [
+            "accounts",
+            "customuser"
+        ],
+        "object_id": "3",
+        "object_repr": "anicolet@bluemail.ch",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 4,
+    "fields": {
+        "action_time": "2025-08-21T08:13:33.644Z",
+        "user": [
+            "eco@ik.me"
+        ],
+        "content_type": [
+            "accounts",
+            "customuser"
+        ],
+        "object_id": "4",
+        "object_repr": "ybuehner@bluewin.ch",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 5,
+    "fields": {
+        "action_time": "2025-08-21T12:04:53.509Z",
+        "user": [
+            "eco@ik.me"
+        ],
+        "content_type": [
+            "accounts",
+            "customuser"
+        ],
+        "object_id": "3",
+        "object_repr": "alex",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Pr\\u00e9sentation\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 6,
+    "fields": {
+        "action_time": "2025-08-21T12:05:07.128Z",
+        "user": [
+            "eco@ik.me"
+        ],
+        "content_type": [
+            "accounts",
+            "customuser"
+        ],
+        "object_id": "2",
+        "object_repr": "arik",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Pr\\u00e9sentation\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 7,
+    "fields": {
+        "action_time": "2025-08-21T12:05:25.674Z",
+        "user": [
+            "eco@ik.me"
+        ],
+        "content_type": [
+            "accounts",
+            "customuser"
+        ],
+        "object_id": "1",
+        "object_repr": "etienne",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Pr\\u00e9sentation\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 8,
+    "fields": {
+        "action_time": "2025-08-21T12:05:38.760Z",
+        "user": [
+            "eco@ik.me"
+        ],
+        "content_type": [
+            "accounts",
+            "customuser"
+        ],
+        "object_id": "4",
+        "object_repr": "yvan",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Pr\\u00e9sentation\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 9,
+    "fields": {
+        "action_time": "2025-08-21T12:55:07.699Z",
+        "user": [
+            "eco@ik.me"
+        ],
+        "content_type": [
+            "accounts",
+            "customuser"
+        ],
+        "object_id": "5",
+        "object_repr": "Phil",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 10,
+    "fields": {
+        "action_time": "2025-08-21T12:58:12.837Z",
+        "user": [
+            "eco@ik.me"
+        ],
+        "content_type": [
+            "accounts",
+            "customuser"
+        ],
+        "object_id": "6",
+        "object_repr": "David",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 11,
+    "fields": {
+        "action_time": "2025-08-21T13:01:26.344Z",
+        "user": [
+            "eco@ik.me"
+        ],
+        "content_type": [
+            "accounts",
+            "customuser"
+        ],
+        "object_id": "7",
+        "object_repr": "luc",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 12,
+    "fields": {
+        "action_time": "2025-08-21T15:10:56.977Z",
+        "user": [
+            "eco@ik.me"
+        ],
+        "content_type": [
+            "accounts",
+            "customuser"
+        ],
+        "object_id": "8",
+        "object_repr": "fonfi",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 13,
+    "fields": {
+        "action_time": "2025-08-21T15:12:41.390Z",
+        "user": [
+            "eco@ik.me"
+        ],
+        "content_type": [
+            "accounts",
+            "customuser"
+        ],
+        "object_id": "9",
+        "object_repr": "jean-marc",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 14,
+    "fields": {
+        "action_time": "2025-08-21T15:14:08.000Z",
+        "user": [
+            "eco@ik.me"
+        ],
+        "content_type": [
+            "accounts",
+            "customuser"
+        ],
+        "object_id": "10",
+        "object_repr": "fred",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 15,
+    "fields": {
+        "action_time": "2025-08-21T15:16:18.792Z",
+        "user": [
+            "eco@ik.me"
+        ],
+        "content_type": [
+            "accounts",
+            "customuser"
+        ],
+        "object_id": "11",
+        "object_repr": "decio",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 16,
+    "fields": {
+        "action_time": "2025-08-21T15:17:41.272Z",
+        "user": [
+            "eco@ik.me"
+        ],
+        "content_type": [
+            "accounts",
+            "customuser"
+        ],
+        "object_id": "12",
+        "object_repr": "robi",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 17,
+    "fields": {
+        "action_time": "2025-08-21T15:19:27.522Z",
+        "user": [
+            "eco@ik.me"
+        ],
+        "content_type": [
+            "accounts",
+            "customuser"
+        ],
+        "object_id": "13",
+        "object_repr": "christophe",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 18,
+    "fields": {
+        "action_time": "2025-08-21T15:20:40.514Z",
+        "user": [
+            "eco@ik.me"
+        ],
+        "content_type": [
+            "accounts",
+            "customuser"
+        ],
+        "object_id": "14",
+        "object_repr": "patrick",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 19,
+    "fields": {
+        "action_time": "2025-08-21T15:22:13.963Z",
+        "user": [
+            "eco@ik.me"
+        ],
+        "content_type": [
+            "accounts",
+            "customuser"
+        ],
+        "object_id": "1",
+        "object_repr": "etienne",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Rang\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 20,
+    "fields": {
+        "action_time": "2025-08-21T15:22:35.064Z",
+        "user": [
+            "eco@ik.me"
+        ],
+        "content_type": [
+            "accounts",
+            "customuser"
+        ],
+        "object_id": "6",
+        "object_repr": "David",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Photo\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 21,
+    "fields": {
+        "action_time": "2025-08-21T15:22:43.391Z",
+        "user": [
+            "eco@ik.me"
+        ],
+        "content_type": [
+            "accounts",
+            "customuser"
+        ],
+        "object_id": "7",
+        "object_repr": "luc",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Photo\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 22,
+    "fields": {
+        "action_time": "2025-08-21T15:22:52.623Z",
+        "user": [
+            "eco@ik.me"
+        ],
+        "content_type": [
+            "accounts",
+            "customuser"
+        ],
+        "object_id": "9",
+        "object_repr": "jean-marc",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Photo\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 23,
+    "fields": {
+        "action_time": "2025-08-21T15:23:01.264Z",
+        "user": [
+            "eco@ik.me"
+        ],
+        "content_type": [
+            "accounts",
+            "customuser"
+        ],
+        "object_id": "14",
+        "object_repr": "patrick",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Photo\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 24,
+    "fields": {
+        "action_time": "2025-08-21T18:59:59.435Z",
+        "user": [
+            "eco@ik.me"
+        ],
+        "content_type": [
+            "accounts",
+            "customuser"
+        ],
+        "object_id": "11",
+        "object_repr": "decio",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Rang\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 25,
+    "fields": {
+        "action_time": "2025-08-21T19:00:27.701Z",
+        "user": [
+            "eco@ik.me"
+        ],
+        "content_type": [
+            "accounts",
+            "customuser"
+        ],
+        "object_id": "10",
+        "object_repr": "fred",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Rang\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 26,
+    "fields": {
+        "action_time": "2025-08-21T19:00:36.390Z",
+        "user": [
+            "eco@ik.me"
+        ],
+        "content_type": [
+            "accounts",
+            "customuser"
+        ],
+        "object_id": "9",
+        "object_repr": "jean-marc",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Rang\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 27,
+    "fields": {
+        "action_time": "2025-08-21T19:00:48.800Z",
+        "user": [
+            "eco@ik.me"
+        ],
+        "content_type": [
+            "accounts",
+            "customuser"
+        ],
+        "object_id": "11",
+        "object_repr": "decio",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Rang\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 28,
+    "fields": {
+        "action_time": "2025-08-27T20:34:38.481Z",
+        "user": [
+            "eco@ik.me"
+        ],
+        "content_type": [
+            "accounts",
+            "customuser"
+        ],
+        "object_id": "5",
+        "object_repr": "Phil",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Surnom\", \"Alias 1\"]}}]"
+    }
+}
+]
