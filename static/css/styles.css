@@ -122,10 +122,13 @@ footer {
 
 .menu-item:hover {
     text-shadow: 0 0 10px #ff0000;
-}/* END HEADER */
+}
+
+/* END HEADER */
 
 
-/* Section principale */
+/* MAIN SECTION */
+
 .main-content {
     margin-top: 196px;
     height: calc(100vh - 196px - 30px);
@@ -148,20 +151,18 @@ footer {
     position: relative;
     display: flex;
     align-items: center;
-    /* Permettre à l'ombre d'être visible verticalement */
     overflow-x: hidden;
     overflow-y: visible;
-    padding: 20px 0; /* Ajouter du padding pour l'ombre */
+    padding: 20px 0;
 }
 
 .carousel-track {
     display: flex;
     gap: 30px;
     align-items: center;
-    height: calc(100% - 40px); /* Ajuster la hauteur pour le padding */
-    cursor: grab;
+    height: calc(100% - 40px);
+    cursor: default;
     user-select: none;
-    /* Ajouter de la marge pour l'ombre */
     padding: 20px 0;
 }
 
@@ -169,7 +170,7 @@ footer {
     cursor: grabbing;
 }
 
-/* Cartes avec ratio 681:1000 */
+/* Card with ratio 681:1000 */
 .card {
     flex-shrink: 0;
     position: relative;
@@ -186,12 +187,14 @@ footer {
     width: 100%;
     height: 100%;
     text-align: center;
-    transition: transform 0.6s;
-    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d !important;
+    backface-visibility: visible;
+    -webkit-backface-visibility: visible;
 }
 
 
-/* Styles pour l'effet de retournement */
+/* Flipping styles */
 
 .card-back-content {
     position: relative;
@@ -248,9 +251,10 @@ footer {
     position: absolute;
     width: 100%;
     height: 100%;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    overflow: hidden;
+    top: 0; left: 0;
+    backface-visibility: hidden !important;
+    -webkit-backface-visibility: hidden !important;
+    -ms-backface-visibility: hidden !important;
 }
 
 .card-front {
@@ -262,6 +266,7 @@ footer {
     display: flex;
     flex-direction: column;
     position: relative;
+    z-index: 3;
 }
 
 .card-image {
@@ -295,7 +300,8 @@ footer {
 }
 
 
-/* Boutons du carrousel */
+/* Carousel Button */
+
 .carousel-button {
     position: absolute;
     top: 50%;
@@ -335,7 +341,8 @@ footer {
     height: 35px;
 }
 
-/* RED ZONE */
+
+/* RED ZONE PAGE */
 .container-redzone {
     display: flex;
     flex-direction: column;
@@ -464,9 +471,21 @@ footer {
     .carousel-button-next {
         right: 10px;
     }
+
+    .card-back-title {
+        font-size: 1.8rem;
+    }
+
+    .card-back-text {
+        font-size: 1rem;
+    }
+
+    .card-back-content {
+        padding: 2rem 1.5rem;
+    }
 }
 
-/* Très petit écran */
+/* Very small screens */
 @media (max-width: 480px) {
     .main-content {
         padding: 15px;
@@ -483,7 +502,6 @@ footer {
     }
 }
 
-/* Masquer la scrollbar si elle apparaît */
 .carousel-wrapper::-webkit-scrollbar {
     display: none;
 }
@@ -491,28 +509,4 @@ footer {
 .carousel-wrapper {
     -ms-overflow-style: none;
     scrollbar-width: none;
-}
-
-
-/*** NEW ***/
-/* Désactiver le curseur grab sur desktop */
-@media (min-width: 769px) {
-    .carousel-track {
-        cursor: default;
-    }
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .card-back-title {
-        font-size: 1.8rem;
-    }
-
-    .card-back-text {
-        font-size: 1rem;
-    }
-
-    .card-back-content {
-        padding: 2rem 1.5rem;
-    }
 }
