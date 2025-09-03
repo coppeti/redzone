@@ -2,60 +2,69 @@
 {% load static %}
 
 {% block title %}
-    Home
+Home
 {% endblock title %}
 
 
 {% block home_active %}
-    active
+active
 {% endblock home_active %}
 
 
 {% block content %}
-        <div class="carousel-container" x-data="carousel()">
-            <button class="carousel-button carousel-button-prev" @click="prev()">
-                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M15 18l-6-6 6-6"/>
-                </svg>
-            </button>
+<div class="carousel-container" x-data="carousel()">
+    <button class="carousel-button carousel-button-prev" @click="prev()">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M15 18l-6-6 6-6" />
+        </svg>
+    </button>
 
-            <div class="carousel-wrapper" x-ref="wrapper">
-                <div class="carousel-track"
-                     x-ref="track"
-                     @touchstart="handleTouchStart($event)"
-                     @touchmove="handleTouchMove($event)"
-                     @touchend="handleTouchEnd($event)">
-                    {% for biker in bikers %}
-                    <div class="card" @click="flipCard({{ forloop.counter0 }})">
-                        <div class="card-inner" :class="{ 'flipped': isCardFlipped({{ forloop.counter0 }}) }">
-                            <!-- Face avant -->
-                            <div class="card-front">
-                                <img src="{{ biker.picture.url }}" alt="{{ biker.nickname}}" class="card-image">
-                            </div>
-                            <!-- Face arrière -->
-                            <div class="card-back">
-                                <img src="{% static 'img/raw_card_verso.jpg' %}" alt="Card back" class="card-back-image">
-                                <div class="card-back-content">
-                                    <h3 class="card-back-title">{{ biker.nickname }}</h3>
-                                    <h3 class="card-back-subtitle">{% if biker.aka1 %}<span class="aka">aka</span> {{ biker.aka1 }}{% endif %}</h3>
-                                    <h3 class="card-back-subtitle">{% if biker.aka2 %}<span class="aka">aka</span> {{ biker.aka2 }}{% endif %}</h3>
-                                    <h3 class="card-back-subtitle">{% if biker.aka3 %}<span class="aka">aka</span> {{ biker.aka3 }}{% endif %}</h3>
-                                    <h3 class="card-back-subtitle">{% if biker.aka4 %}<span class="aka">aka</span> {{ biker.aka4 }}{% endif %}</h3>
-                                    <p class="card-back-text">
-                                        {{ biker.description }}
-                                    </p>
-                                </div>
-                            </div>
+    <div class="carousel-wrapper" x-ref="wrapper">
+        <div class="carousel-track"
+            x-ref="track"
+            @touchstart="handleTouchStart($event)"
+            @touchmove="handleTouchMove($event)"
+            @touchend="handleTouchEnd($event)"
+            @mousedown="handleMouseDown($event)">
+            {% for biker in bikers %}
+            <div class="card" @click="flipCard({{ forloop.counter0 }})">
+                <div class="card-inner" :class="{ 'flipped': isCardFlipped({{ forloop.counter0 }}) }">
+                    <!-- Face avant -->
+                    <div class="card-front">
+                        <img src="{{ biker.picture.url }}" alt="{{ biker.nickname}}" class="card-image">
+                    </div>
+                    <!-- Face arrière -->
+                    <div class="card-back">
+                        <img src="{% static 'img/raw_card_verso.jpg' %}" alt="Card back" class="card-back-image">
+                        <div class="card-back-content">
+                            <h3 class="card-back-title">{{ biker.nickname }}</h3>
+                            <h3 class="card-back-subtitle">
+                                {% if biker.aka1 %}<span class="aka">aka </span>{{ biker.aka1 }}{% endif %}
+                            </h3>
+                            <h3 class="card-back-subtitle">
+                                {% if biker.aka2 %}<span class="aka">aka </span>{{ biker.aka2 }}{% endif %}
+                            </h3>
+                            <h3 class="card-back-subtitle">
+                                {% if biker.aka3 %}<span class="aka">aka </span>{{ biker.aka3 }}{% endif %}
+                            </h3>
+                            <h3 class="card-back-subtitle">
+                                {% if biker.aka4 %}<span class="aka">aka </span>{{ biker.aka4 }}{% endif %}
+                            </h3>
+                            <p class="card-back-text">
+                                {{ biker.description }}
+                            </p>
                         </div>
                     </div>
-                    {% endfor %}
                 </div>
             </div>
-
-            <button class="carousel-button carousel-button-next" @click="next()">
-                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M9 18l6-6-6-6"/>
-                </svg>
-            </button>
+            {% endfor %}
         </div>
+    </div>
+
+    <button class="carousel-button carousel-button-next" @click="next()">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 18l6-6-6-6" />
+        </svg>
+    </button>
+</div>
 {% endblock content %}

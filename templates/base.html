@@ -15,11 +15,16 @@
 <body>
     <!--  Header sticky  -->
     <header class="sticky-header">
-        <div class="header-content">
-            <a href="http://redzoneteam.ch" target="_self"><img src="{% static 'img/logo_redzone.png' %}"
-                    alt="Logo Red Zone" /></a>
-            <nav class="menu">
-                <a href="{% url 'home' %}" class="menu-item {% block home_active %}{% endblock %}">Home</a>
+        <div class="header-content" x-data="{ open: false }">
+            <a href="/" id="logo"><img src="{% static 'img/logo_redzone.png' %}" alt="Logo Red Zone" /></a>
+            <button class="burger" @click="open = !open" :class="{ 'active': open }" aria-label="Ouvrir le menu"
+                aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="menu" :class="{ 'open': open }">
+                <a href=" {% url 'home' %}" class="menu-item {% block home_active %}{% endblock %}">Home</a>
                 <a href="{% url 'gallery' %}" class="menu-item {% block gallery_active %}{% endblock %}">Gallery</a>
                 <a href="{% url 'redzone' %}" class="menu-item {% block redzone_active %}{% endblock %}">Red Zone</a>
             </nav>
@@ -30,7 +35,18 @@
         {% block content %} {% endblock content %}
     </main>
     <footer>
-        <div>© {% now "Y" %} Red Zone Team | all rights reserved | designed and build by puco with ❤️</div>
+        <div class="copyright">
+            © {% now "Y" %} Red Zone Team
+        </div>
+        <div class="separator">&nbsp;&nbsp;|&nbsp;&nbsp;</div>
+        <div class="copyright">
+            all rights reserved
+        </div>
+        <div class="separator">&nbsp;&nbsp;|&nbsp;&nbsp;</div>
+        <div class="copyright">
+            designed and build by puco with ❤️
+        </div>
+        </div>
     </footer>
 </body>
 

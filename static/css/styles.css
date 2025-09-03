@@ -29,7 +29,8 @@ body {
     background-color: #000000;
     color: #ff0000;
     font-family: 'Poppins-extralight', sans-serif;
-    overflow-x: hidden;
+    overflow: hidden;
+    min-height: 100vh;
 }
 
 @font-face {
@@ -58,10 +59,15 @@ body {
 }
 
 footer {
+    width: 100%;
+    min-height: 30px; /* ou plus */
     display: flex;
     justify-content: center;
-    height: 30px;
-    font-size: 0.7rem;
+    align-items: center;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    z-index: 10;
 }
 
 /* END GENERAL */
@@ -76,6 +82,7 @@ footer {
     left: 0;
     width: 100%;
     height: 196px;
+    z-index: 20;
 }
 
 .header-content {
@@ -124,19 +131,51 @@ footer {
     text-shadow: 0 0 10px #ff0000;
 }
 
+.burger {
+  display: none;
+  flex-direction: column;
+  width: 35px;
+  height: 32px;
+  justify-content: space-around;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 20;
+  padding: 0;
+}
+.burger span {
+  display: block;
+  height: 4px;
+  width: 100%;
+  background: #ff0000;
+  border-radius: 2px;
+  transition: 0.3s;
+}
+
+.burger.active span:nth-child(1) { transform: rotate(45deg) translateY(10px);}
+.burger.active span:nth-child(2) { opacity: 0;}
+.burger.active span:nth-child(3) { transform: rotate(-45deg) translateY(-10px); }
+
 /* END HEADER */
 
 
 /* MAIN SECTION */
 
 .main-content {
-    margin-top: 196px;
-    height: calc(100vh - 196px - 30px);
-    display: flex;
-    box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  top: 196px; /* header height */
+  width: 100vw;
+  height: calc(100vh - 196px - 30px); /* 30px = footer height */
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  box-sizing: border-box;
+  overflow: visible;
+  z-index: 5;
 }
 
-/* Carrousel */
+/* Carousel */
 .carousel-container {
     position: relative;
     width: 100%;
@@ -414,7 +453,7 @@ footer {
 }
 
 
-/* Responsive - Tablette */
+/* Responsive - Tablet */
 @media (max-width: 1024px) {
     .main-content {
         padding: 40px;
@@ -438,50 +477,101 @@ footer {
 /* Responsive - Mobile */
 @media (max-width: 768px) {
     .main-content {
-        padding: 20px;
+    position: static !important;
+    height: auto !important;
+    min-height: 0 !important;
+    padding-top: 64px !important;
+    padding-bottom: 16px !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    box-sizing: border-box;
+    display: block !important;
+    overflow: visible !important;
+    }
+
+    .header-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 1.5rem;
+        height: 80px;
+    }
+
+    .sticky-header {
+        height: 80px;
+    }
+
+    #logo img {
+        max-height: 65px;
+        height: auto;
+        display: block;
+    }
+
+    .burger {
+        display: flex;
+        margin-left: auto;
+        margin-right: 0.5rem;
+    }
+
+    .menu {
+        display: none;
+        position: absolute;
+        top: 80px;
+        left: 0; right: 0;
+        width: 100vw;
+        background: #000;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+        padding: 30px 20px;
+        z-index: 15;
+        box-shadow: 0 6px 25px 0 rgba(0,0,0,0.8);
+    }
+
+    .menu.open {
+        display: flex;
+    }
+
+    .menu-item {
+        font-size: 1.4rem;
+        padding: 0.7rem 0;
     }
 
     .carousel-track {
         gap: 20px;
     }
 
-    .card-title {
-        font-size: 1.3rem;
-        letter-spacing: 2px;
-    }
-
     .card-overlay {
         padding: 3rem 1rem 1.5rem;
     }
 
-    .carousel-button {
-        width: 50px;
-        height: 50px;
+    .card-back-title, .card-back-subtitle {
+        font-size: 1.1rem;
     }
 
-    .carousel-button svg {
-        width: 25px;
-        height: 25px;
-    }
-
-    .carousel-button-prev {
-        left: 10px;
-    }
-
-    .carousel-button-next {
-        right: 10px;
-    }
-
-    .card-back-title {
-        font-size: 1.8rem;
+    .aka {
+        font-size: 0.9rem;
     }
 
     .card-back-text {
-        font-size: 1rem;
+        font-size: 0.7rem;
+        margin-top: 10px;
+        max-width: 95%;
     }
 
     .card-back-content {
-        padding: 2rem 1.5rem;
+        padding: 0.8rem 0.8rem;
+    }
+
+    footer {
+        flex-direction: column;
+        justify-content: end;
+        font-size: 0.7rem;
+    }
+
+    .separator {
+        visibility: hidden;
+        height: 0;
     }
 }
 
@@ -491,14 +581,27 @@ footer {
         padding: 15px;
     }
 
-    .carousel-button {
-        width: 45px;
-        height: 45px;
+    .header-content {
+        padding: 0 8px;
+        height: 60px;
     }
 
-    .carousel-button svg {
-        width: 20px;
-        height: 20px;
+    .sticky-header {
+        height: 60px;
+    }
+
+    #logo img {
+        max-height: 50px;
+    }
+
+    footer {
+        flex-direction: column;
+        justify-content: end;
+    }
+
+    .separator {
+        visibility: hidden;
+        height: 0;
     }
 }
 
@@ -509,4 +612,13 @@ footer {
 .carousel-wrapper {
     -ms-overflow-style: none;
     scrollbar-width: none;
+}
+
+
+/* On tactile screens, no carousel buttons */
+
+@media (pointer: coarse) {
+  .carousel-button {
+    display: none !important;
+  }
 }

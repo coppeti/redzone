@@ -8,15 +8,21 @@ function carousel() {
         containerWidth: 0,
         containerHeight: 0,
         cardRatio: 681 / 1000,
-        gap: 30,
-        flippedCards: [], // Pour suivre les cartes retournées
+        gap: 35,
+        flippedCards: [],
+        // Swipe libre :
+        isDragging: false,
+        dragOffset: 0,
+        startX: 0,
 
         init() {
             this.setupCarousel();
             this.cloneCards();
+            this.centerInitial();
 
             window.addEventListener('resize', () => {
                 this.setupCarousel();
+                this.centerInitial();
             });
         },
 
@@ -25,118 +31,187 @@ function carousel() {
             const cards = container.querySelectorAll('.card:not(.clone)');
             this.cards = Array.from(cards);
 
-            // Initialiser le tableau des cartes retournées
             this.flippedCards = new Array(this.cards.length).fill(false);
 
-            // Calculer les dimensions du conteneur
+            // 1. Dimensions du wrapper à disposition
             this.containerWidth = this.$refs.wrapper.offsetWidth;
-            this.containerHeight = this.$refs.wrapper.offsetHeight;
+            // Hauteur disponible viewport - header (196) - footer (30)
+            const headerHeight = 196;
+            const footerHeight = 30;
+            const usableHeight =
+                window.innerHeight - headerHeight - footerHeight;
+            const maxCardHeight = 1000;
+            const maxCardWidth = 681;
+            const cardRatio = this.cardRatio;
 
-            // Ajouter une marge pour l'ombre (20px en haut et en bas)
-            const shadowMargin = 40;
+            // 2. On veut la carte la plus haute possible, mais sans dépasser 1000px ni rognée en largeur
+            let targetHeight = Math.min(usableHeight, 1000);
+            let targetWidth = targetHeight * this.cardRatio;
 
-            // Calculer la hauteur maximale disponible en tenant compte de l'ombre
-            const maxHeight = this.containerHeight - shadowMargin;
-            const maxWidth = maxHeight * this.cardRatio;
-
-            // Déterminer les dimensions des cartes en respectant le ratio
-            if (maxWidth * 2 + this.gap > this.containerWidth) {
-                this.cardWidth = Math.min(
-                    (this.containerWidth - this.gap * 2) / 2.5,
-                    maxWidth
-                );
-                this.cardHeight = this.cardWidth / this.cardRatio;
+            if (targetWidth > this.containerWidth) {
+                targetWidth = this.containerWidth;
+                targetHeight = targetWidth / this.cardRatio;
             } else {
-                this.cardHeight = maxHeight;
-                this.cardWidth = this.cardHeight * this.cardRatio;
+                // Sinon, on ne dépasse pas la largeur maximale, donc OK
+                targetWidth = Math.min(targetWidth, maxCardWidth);
+                targetHeight = targetWidth / cardRatio;
             }
 
-            // Appliquer les dimensions aux cartes
+            this.cardWidth = targetWidth;
+            this.cardHeight = targetHeight;
+
+            // GAP dynamique ou fixe selon tes goûts
+            this.gap = window.innerWidth <= 768 ? 8 : 30;
+            this.cardTotalWidth = this.cardWidth + this.gap;
+
+            // Applique styles width/height aux cartes du DOM
             const allCards = container.querySelectorAll('.card');
             allCards.forEach((card) => {
                 card.style.width = `${this.cardWidth}px`;
                 card.style.height = `${this.cardHeight}px`;
             });
 
-            // Position initiale au centre des cartes clonées
-            this.offset = -(this.cards.length * (this.cardWidth + this.gap));
+            // Centrage horizontal (première carte au centre du viewport)
+            this.offset = (this.containerWidth - this.cardWidth) / 2;
             this.updatePosition(false);
         },
 
         cloneCards() {
             const track = this.$refs.track;
-            const originalCards = Array.from(track.querySelectorAll('.card'));
+            Array.from(track.querySelectorAll('.clone')).forEach((c) =>
+                c.remove()
+            );
 
+            const originalCards = Array.from(
+                track.querySelectorAll('.card:not(.clone)')
+            );
+
+            // Clonage APRES (ordre "normal")
             originalCards.forEach((card, index) => {
-                const cloneBefore = card.cloneNode(true);
                 const cloneAfter = card.cloneNode(true);
-                cloneBefore.classList.add('clone');
                 cloneAfter.classList.add('clone');
-
-                // Marquer les clones avec un attribut data
-                cloneBefore.setAttribute('data-clone-index', index);
                 cloneAfter.setAttribute('data-clone-index', index);
-
-                track.insertBefore(cloneBefore, track.firstChild);
                 track.appendChild(cloneAfter);
             });
+            // Clonage AVANT (ordre inversé pour sens rewind)
+            originalCards
+                .slice()
+                .reverse()
+                .forEach((card, index) => {
+                    const cloneBefore = card.cloneNode(true);
+                    cloneBefore.classList.add('clone');
+                    // Option : index inversé ou non, ici pour debug/traçage c'est le même
+                    cloneBefore.setAttribute('data-clone-index', index);
+                    track.insertBefore(cloneBefore, track.firstChild);
+                });
         },
 
-        next() {
-            this.currentIndex++;
-            this.offset -= this.cardWidth + this.gap;
-            this.updatePosition(true);
+        centerInitial() {
+            // On cible la première vraie carte (après les clones)
+            const allCards = this.$refs.track.querySelectorAll('.card');
+            const firstRealCardIndex = this.cards.length;
 
-            setTimeout(() => {
-                this.checkInfiniteScroll();
-            }, 500);
+            // Position (en px) du bord gauche de la première vraie carte dans le track
+            let cardRect = allCards[firstRealCardIndex].getBoundingClientRect();
+            let trackRect = this.$refs.track.getBoundingClientRect();
+            let wrapperRect = this.$refs.wrapper.getBoundingClientRect();
+
+            // Offset du début de la vraie carte PAR RAPPORT AU TRACK
+            let leftInTrack = allCards[firstRealCardIndex].offsetLeft;
+
+            // Pour centrer cette carte dans le wrapper :
+            this.offset =
+                this.containerWidth / 2 - (leftInTrack + this.cardWidth / 2);
+
+            this.updatePosition(false);
         },
 
-        prev() {
-            this.currentIndex--;
-            this.offset += this.cardWidth + this.gap;
-            this.updatePosition(true);
+        normalizeForInfinite() {
+            // Nombre de vraies cartes
+            const cardCount = this.cards.length;
+            const trackLength = cardCount * this.cardTotalWidth;
 
-            setTimeout(() => {
-                this.checkInfiniteScroll();
-            }, 500);
-        },
+            // Valeur min = tout le track original + 1, à gauche (on a N clones devant)
+            // Valeur max = -clones devant, à droite (car on a N clones après)
+            const minOffset =
+                (this.containerWidth - this.cardWidth) / 2 - trackLength * 2;
+            const maxOffset = (this.containerWidth - this.cardWidth) / 2;
 
-        checkInfiniteScroll() {
-            const totalOriginalCards = this.cards.length;
-            const totalWidth = totalOriginalCards * (this.cardWidth + this.gap);
-
-            if (this.currentIndex >= totalOriginalCards) {
-                this.currentIndex = 0;
-                this.offset = -(
-                    totalOriginalCards *
-                    (this.cardWidth + this.gap)
-                );
-                this.updatePosition(false);
-            } else if (this.currentIndex < 0) {
-                this.currentIndex = totalOriginalCards - 1;
-                this.offset = -(
-                    (totalOriginalCards * 2 - 1) *
-                    (this.cardWidth + this.gap)
-                );
-                this.updatePosition(false);
+            if (this.offset > maxOffset) {
+                // Si on est allé trop à droite ("avant" les clones), on recentre sur le set du milieu
+                this.offset = this.offset - trackLength;
+            } else if (this.offset < minOffset) {
+                // Si on est allé trop à gauche ("après" tous les clones), on recentre sur le set du milieu
+                this.offset = this.offset + trackLength;
             }
+            this.updatePosition(false);
         },
 
         updatePosition(animate) {
             const track = this.$refs.track;
             if (animate) {
                 track.style.transition =
-                    'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+                    'transform 0.5s cubic-bezier(0.4,0,0.2,1)';
             } else {
                 track.style.transition = 'none';
             }
             track.style.transform = `translateX(${this.offset}px)`;
         },
 
-        // Fonction pour retourner une carte
+        // === SWIPE LIBRE MOBILE/DESKTOP ===
+
+        handleTouchStart(e) {
+            this.startX = e.touches ? e.touches[0].clientX : e.clientX;
+            this.isDragging = true;
+            this.dragOffset = this.offset;
+        },
+
+        handleTouchMove(e) {
+            if (!this.isDragging) return;
+            const x = e.touches ? e.touches[0].clientX : e.clientX;
+            const walk = x - this.startX;
+            this.offset = this.dragOffset + walk;
+            this.updatePosition(false);
+        },
+
+        handleTouchEnd(e) {
+            this.isDragging = false;
+            // Boucle infini
+            setTimeout(() => this.normalizeForInfinite(), 10);
+        },
+
+        handleMouseDown(e) {
+            e.preventDefault();
+            this.isDragging = true;
+            this.startX = e.clientX;
+            this.dragOffset = this.offset;
+            document.addEventListener(
+                'mousemove',
+                (this.boundMouseMove = this.handleMouseMove.bind(this))
+            );
+            document.addEventListener(
+                'mouseup',
+                (this.boundMouseUp = this.handleMouseUp.bind(this))
+            );
+        },
+
+        handleMouseMove(e) {
+            if (!this.isDragging) return;
+            const x = e.clientX;
+            const walk = x - this.startX;
+            this.offset = this.dragOffset + walk;
+            this.updatePosition(false);
+        },
+
+        handleMouseUp(e) {
+            this.isDragging = false;
+            setTimeout(() => this.normalizeForInfinite(), 10);
+            document.removeEventListener('mousemove', this.boundMouseMove);
+            document.removeEventListener('mouseup', this.boundMouseUp);
+        },
+
+        // ==== flipping gestion ====
         flipCard(index) {
-            // Empêcher le clic pendant l'animation
             if (
                 event.target
                     .closest('.card-inner')
@@ -146,11 +221,7 @@ function carousel() {
 
             const cardInner = event.target.closest('.card-inner');
             cardInner.classList.add('flipping');
-
-            // Retourner la carte
             this.flippedCards[index] = !this.flippedCards[index];
-
-            // Retirer la classe flipping après l'animation
             setTimeout(() => {
                 cardInner.classList.remove('flipping');
             }, 600);
@@ -160,30 +231,77 @@ function carousel() {
             return this.flippedCards[index] || false;
         },
 
-        // Gestion du touch pour mobile uniquement
-        handleTouchStart(e) {
-            this.startX = e.touches[0].clientX;
-        },
+        next() {
+            // Trouve l'index de la carte actuellement centrée
+            const allCards = this.$refs.track.querySelectorAll('.card');
+            const totalCards = allCards.length;
+            const cardCount = this.cards.length;
+            const firstRealIndex = cardCount;
+            const trackLeft = this.offset;
 
-        handleTouchMove(e) {
-            const x = e.touches[0].clientX;
-            const walk = x - this.startX;
-            this.$refs.track.style.transform = `translateX(${
-                this.offset + walk
-            }px)`;
-        },
+            // Position du centre du carrousel (viewport centré)
+            const carouselCenter = this.containerWidth / 2;
 
-        handleTouchEnd(e) {
-            const walk = e.changedTouches[0].clientX - this.startX;
-            if (Math.abs(walk) > 50) {
-                if (walk > 0) {
-                    this.prev();
-                } else {
-                    this.next();
+            // Recherche l'index DOM de la carte la plus proche du centre
+            let bestIndex = 0;
+            let bestDelta = Infinity;
+            for (let i = 0; i < totalCards; i++) {
+                const cardLeft = allCards[i].offsetLeft + trackLeft;
+                const cardCenter = cardLeft + this.cardWidth / 2;
+                const delta = Math.abs(carouselCenter - cardCenter);
+                if (delta < bestDelta) {
+                    bestDelta = delta;
+                    bestIndex = i;
                 }
-            } else {
-                this.updatePosition(true);
             }
+            // Avance à la carte suivante (dans le flux infini)
+            let nextIndex = bestIndex + 1;
+            if (nextIndex >= totalCards) nextIndex = 0;
+
+            // Recale le carrousel sur le centre de la carte suivante
+            const nextCard = allCards[nextIndex];
+            const nextLeftInTrack = nextCard.offsetLeft;
+            this.offset =
+                this.containerWidth / 2 -
+                (nextLeftInTrack + this.cardWidth / 2);
+            this.updatePosition(true);
+
+            // Normaliser pour l’infini (si clone)
+            setTimeout(() => this.normalizeForInfinite(), 520); // délai = durée d'anim + petite marge
+        },
+
+        prev() {
+            const allCards = this.$refs.track.querySelectorAll('.card');
+            const totalCards = allCards.length;
+            const cardCount = this.cards.length;
+            const firstRealIndex = cardCount;
+            const trackLeft = this.offset;
+
+            const carouselCenter = this.containerWidth / 2;
+            let bestIndex = 0;
+            let bestDelta = Infinity;
+            for (let i = 0; i < totalCards; i++) {
+                const cardLeft = allCards[i].offsetLeft + trackLeft;
+                const cardCenter = cardLeft + this.cardWidth / 2;
+                const delta = Math.abs(carouselCenter - cardCenter);
+                if (delta < bestDelta) {
+                    bestDelta = delta;
+                    bestIndex = i;
+                }
+            }
+            let prevIndex = bestIndex - 1;
+            if (prevIndex < 0) prevIndex = totalCards - 1;
+
+            const prevCard = allCards[prevIndex];
+            const prevLeftInTrack = prevCard.offsetLeft;
+            this.offset =
+                this.containerWidth / 2 -
+                (prevLeftInTrack + this.cardWidth / 2);
+            this.updatePosition(true);
+
+            setTimeout(() => this.normalizeForInfinite(), 520);
         },
     };
+
+
 }
