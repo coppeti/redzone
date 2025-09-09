@@ -16,7 +16,3 @@ def home(request):
 
 def gallery(request):
     return render(request, "main/gallery.html")
-
-
-def redzone(request):
-    return render(request, "main/redzone.html")
