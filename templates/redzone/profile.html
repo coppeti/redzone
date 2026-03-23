@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Mon profil{% endblock title %}
+
+{% block profile_active %}active{% endblock profile_active %}
+
+{% block content %}
+<div class="container-membres">
+    <h1 class="title">Mon profil</h1>
+
+    <div class="profil-infos">
+        {% if user.picture %}
+        <img src="{{ user.picture.url }}" alt="{{ user.nickname }}" class="profil-picture">
+        {% endif %}
+        <div class="profil-details">
+            <p><span class="profil-label">Prénom :</span> {{ user.firstname }}</p>
+            <p><span class="profil-label">Surnom :</span> {{ user.nickname }}</p>
+            {% if user.aka1 %}<p><span class="profil-label">Aka :</span> {{ user.aka1 }}{% if user.aka2 %}, {{ user.aka2 }}{% endif %}{% if user.aka3 %}, {{ user.aka3 }}{% endif %}{% if user.aka4 %}, {{ user.aka4 }}{% endif %}</p>{% endif %}
+            {% if user.description %}<p><span class="profil-label">Bio :</span> {{ user.description }}</p>{% endif %}
+            <p><span class="profil-label">Email :</span> {{ user.email }}</p>
+        </div>
+    </div>
+
+    <div class="profil-actions">
+        <a href="{% url 'password-change' %}" class="button-redzone">Changer mon mot de passe</a>
+        <a href="{% url 'member-space' %}" class="button-secondary">Retour à l'espace membres</a>
+    </div>
+</div>
+{% endblock content %}

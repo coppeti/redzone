@@ -1,13 +1,25 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block title %}Gallery{% endblock title %}
 
-{% block title %}
-    Gallery
-{% endblock title %}
-
-
+{% block gallery_active %}active{% endblock gallery_active %}
 
 {% block content %}
-<h1>GALLERY</h1>
+<div class="membre-page">
+    <div class="membre-welcome">
+        <h1 class="title">Gallery</h1>
+    </div>
+    <div class="container-membres">
+        {% if albums %}
+        <div class="gallery-list">
+            {% for album in albums %}
+            <a href="{% url 'gallery-album' album.pk %}" class="gallery-list-item">{{ album.title }}</a>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="empty-state">La galerie est vide pour l'instant.</p>
+        {% endif %}
+    </div>
+</div>
 {% endblock content %}

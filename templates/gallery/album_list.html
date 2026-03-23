@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Galerie{% endblock title %}
+
+{% block redzone_active %}active{% endblock redzone_active %}
+
+{% block content %}
+<div class="container-membres">
+    <div class="section-header">
+        <h1 class="title">Galerie privée</h1>
+        <a href="{% url 'album-create' %}" class="button-redzone">Nouvel album</a>
+    </div>
+
+    {% if albums %}
+    <div class="albums-grid">
+        {% for album in albums %}
+        <a href="{% url 'album-detail' album.pk %}" class="album-card">
+            {% with cover=album.medias.first %}
+            {% if cover and cover.file %}
+            <img src="{{ cover.file.url }}" alt="{{ album.title }}" class="album-cover">
+            {% else %}
+            <div class="album-cover-placeholder">📷</div>
+            {% endif %}
+            {% endwith %}
+            <div class="album-info">
+                <h2 class="album-title">{{ album.title }}</h2>
+                <p class="album-meta">{{ album.medias.count }} média{{ album.medias.count|pluralize }} · {{ album.created_by.nickname|default:album.created_by.firstname }}</p>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p class="empty-state">Aucun album pour l'instant. <a href="{% url 'album-create' %}" class="link-red">Crée le premier !</a></p>
+    {% endif %}
+
+    <div class="back-link">
+        <a href="{% url 'member-space' %}" class="link-red">← Espace membres</a>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Nouvel album{% endblock title %}
+
+{% block redzone_active %}active{% endblock redzone_active %}
+
+{% block content %}
+<div class="container-redzone">
+    <h1 class="title">Nouvel album</h1>
+    <form class="form-redzone" method="post">
+        {% csrf_token %}
+        <div class="form-row-redzone">
+            <label class="label-redzone" for="{{ form.title.id_for_label }}">Titre :</label>
+            {{ form.title }}
+        </div>
+        <div class="form-row-redzone">
+            <label class="label-redzone" for="{{ form.description.id_for_label }}">Description :</label>
+            {{ form.description }}
+        </div>
+        <div class="form-actions">
+            <button class="button-redzone" type="submit">Créer</button>
+            <a href="{% url 'member-space' %}" class="button-secondary">Annuler</a>
+        </div>
+    </form>
+</div>
+{% endblock content %}

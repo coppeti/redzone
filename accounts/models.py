@@ -66,4 +66,4 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         verbose_name_plural = "Utilisateurs"
 
     def __str__(self):
-        return self.firstname
+        return self.nickname or self.firstname or self.email

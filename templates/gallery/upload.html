@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+
+{% block title %}Ajouter un média{% endblock title %}
+
+{% block redzone_active %}active{% endblock redzone_active %}
+
+{% block content %}
+<div class="upload-page"
+     x-data="{
+        albumMode: '{{ has_albums|yesno:'existing,new' }}',
+        mediaType: 'photo',
+        photos: [],
+        addPhotos(e) {
+            this.photos = Array.from(e.target.files).map(f => ({
+                preview: URL.createObjectURL(f),
+                title: '',
+                is_public: false,
+                removed: false
+            }));
+        },
+        removePhoto(i) {
+            this.photos[i].removed = true;
+        },
+        get hasVisiblePhotos() {
+            return this.photos.some(p => !p.removed);
+        }
+     }">
+
+    <h1 class="title">Ajouter un média</h1>
+
+    {% if errors %}
+    <div class="form-errors">{% for e in errors %}{{ e }}<br>{% endfor %}</div>
+    {% endif %}
+
+    <form class="upload-form" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <!-- GALERIE -->
+        <div class="upload-section">
+            <span class="upload-label">Galerie</span>
+            <div class="upload-field">
+                {% if has_albums %}
+                <div class="upload-tabs">
+                    <button type="button" :class="{ 'upload-tab-active': albumMode === 'existing' }" @click="albumMode = 'existing'">Existante</button>
+                    <button type="button" :class="{ 'upload-tab-active': albumMode === 'new' }" @click="albumMode = 'new'">Nouvelle</button>
+                </div>
+                <div x-show="albumMode === 'existing'">
+                    <select name="album" class="input-redzone">
+                        <option value="">-- Choisir --</option>
+                        {% for album in albums %}<option value="{{ album.pk }}">{{ album.title }}</option>{% endfor %}
+                    </select>
+                </div>
+                <div x-show="albumMode === 'new'">
+                    <input type="text" name="new_album_name" class="input-redzone" placeholder="Nom de la nouvelle galerie">
+                </div>
+                {% else %}
+                <input type="text" name="new_album_name" class="input-redzone" placeholder="Nom de la galerie">
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="upload-divider"></div>
+
+        <!-- TYPE -->
+        <div class="upload-section">
+            <span class="upload-label">Type</span>
+            <div class="upload-radio-group">
+                <label class="upload-radio-label" :class="{ 'upload-radio-active': mediaType === 'photo' }">
+                    <input type="radio" name="media_type" value="photo" x-model="mediaType"> Photo
+                </label>
+                <label class="upload-radio-label" :class="{ 'upload-radio-active': mediaType === 'video' }">
+                    <input type="radio" name="media_type" value="video" x-model="mediaType"> Vidéo
+                </label>
+            </div>
+        </div>
+
+        <div class="upload-divider"></div>
+
+        <!-- PHOTOS -->
+        <div x-show="mediaType === 'photo'">
+            <div class="upload-section">
+                <span class="upload-label">Fichiers</span>
+                <div class="upload-field">
+                    <input type="file" name="file" multiple accept=".jpg,.jpeg"
+                           x-ref="fileInput" @change="addPhotos($event)"
+                           class="upload-file-input">
+                    <p class="upload-hint">JPG uniquement · max 10 Mo par photo · redimensionné à 1920 px</p>
+                </div>
+            </div>
+
+            <!-- VIGNETTES -->
+            <template x-if="hasVisiblePhotos">
+                <div>
+                    <div class="upload-divider"></div>
+                    <div class="upload-section upload-section-column">
+                        <span class="upload-label" style="padding-top:0;">Photos</span>
+                        <div class="upload-thumbs">
+                            <template x-for="(photo, index) in photos" :key="index">
+                                <div class="upload-thumb" x-show="!photo.removed">
+                                    <div class="upload-thumb-img-wrap">
+                                        <img :src="photo.preview" class="upload-thumb-img">
+                                        <button type="button" class="upload-thumb-remove" @click="removePhoto(index)">✕</button>
+                                    </div>
+                                    <input type="text"
+                                           :name="'title_' + index"
+                                           x-model="photo.title"
+                                           class="upload-thumb-title"
+                                           placeholder="Titre">
+                                    <label class="upload-thumb-public">
+                                        <input type="checkbox"
+                                               :name="'is_public_' + index"
+                                               x-model="photo.is_public"
+                                               class="input-checkbox">
+                                        Public
+                                    </label>
+                                    <input type="hidden" :name="'removed_' + index" :value="photo.removed ? '1' : '0'">
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </div>
+
+        <!-- VIDÉO -->
+        <div x-show="mediaType === 'video'">
+            <div class="upload-section">
+                <span class="upload-label">URL vidéo</span>
+                <div class="upload-field">
+                    <input type="url" name="video_url" class="input-redzone" placeholder="YouTube, Vimeo ou Odysee">
+                </div>
+            </div>
+            <div class="upload-divider"></div>
+            <div class="upload-section">
+                <span class="upload-label">Titre <span class="upload-optional">(optionnel)</span></span>
+                <input type="text" name="title" class="input-redzone" placeholder="Titre de la vidéo">
+            </div>
+            <div class="upload-section upload-section-inline">
+                <span class="upload-label"></span>
+                <label class="upload-label-inline">
+                    <input type="checkbox" name="is_public" class="input-checkbox">
+                    Visible dans la galerie publique
+                </label>
+            </div>
+        </div>
+
+        <!-- ACTIONS -->
+        <div class="upload-actions">
+            <button class="button-redzone" type="submit">Ajouter</button>
+            <a href="{% url 'member-space' %}" class="button-secondary">Annuler</a>
+        </div>
+
+    </form>
+</div>
+{% endblock content %}

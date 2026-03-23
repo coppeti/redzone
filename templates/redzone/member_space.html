@@ -1,16 +1,28 @@
 {% extends 'base.html' %}
 
-{% block title %}
-    Red Zone
-{% endblock title %}
+{% block title %}Red Zone{% endblock title %}
 
-
-{% block redzone_active %}
-    active
-{% endblock redzone_active %}
-
+{% block redzone_active %}active{% endblock redzone_active %}
 
 {% block content %}
+<div class="membre-page">
 
-<h1>MEMBER SPACE</h1>
+    <div class="membre-welcome">
+        <h1 class="title">Bienvenue, {{ user.nickname|default:user.firstname }}</h1>
+        <a href="{% url 'upload' %}" class="button-redzone">Ajouter une galerie</a>
+    </div>
+
+    <div class="membre-galleries">
+        {% if albums %}
+        <div class="gallery-list">
+            {% for album in albums %}
+            <a href="{% url 'album-detail' album.pk %}" class="gallery-list-item">{{ album.title }}</a>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="empty-state">Pas de galerie.</p>
+        {% endif %}
+    </div>
+
+</div>
 {% endblock content %}

@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block title %}Ajouter un média{% endblock title %}
+
+{% block redzone_active %}active{% endblock redzone_active %}
+
+{% block content %}
+<div class="container-membres" x-data="{ tab: 'photo' }">
+    <div class="membre-welcome">
+        <h1 class="title">{{ album.title }}</h1>
+    </div>
+
+    {% if errors %}
+    <div class="form-errors">
+        {% for error in errors %}<p>{{ error }}</p>{% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="tab-switcher">
+        <button class="tab-btn" :class="{ 'active': tab === 'photo' }" @click="tab = 'photo'">Photo</button>
+        <button class="tab-btn" :class="{ 'active': tab === 'video' }" @click="tab = 'video'">Vidéo</button>
+    </div>
+
+    <!-- Formulaire Photo -->
+    <div x-show="tab === 'photo'" x-data="{
+        photos: [],
+        addPhotos(e) {
+            Array.from(e.target.files).forEach((file, i) => {
+                const idx = this.photos.length;
+                this.photos.push({ name: file.name, url: URL.createObjectURL(file), title: '', is_public: false, index: idx });
+            });
+        }
+    }">
+        <form method="post" enctype="multipart/form-data" class="upload-form">
+            {% csrf_token %}
+            <input type="hidden" name="media_type" value="photo">
+
+            <div class="upload-section">
+                <span class="upload-label">Photos (JPG)</span>
+                <div class="upload-field">
+                    <input type="file" name="file" accept=".jpg,.jpeg" multiple class="input-file" @change="addPhotos($event)">
+                </div>
+            </div>
+
+            <template x-if="photos.length > 0">
+                <div class="upload-thumbs">
+                    <template x-for="(photo, i) in photos" :key="i">
+                        <div class="upload-thumb" x-show="!photo.removed">
+                            <img :src="photo.url" :alt="photo.name" class="upload-thumb-img">
+                            <input type="text" :name="'title_' + i" x-model="photo.title" placeholder="Titre (optionnel)" class="upload-thumb-title">
+                            <div class="upload-thumb-footer">
+                                <label class="upload-thumb-public">
+                                    <input type="checkbox" :name="'is_public_' + i" x-model="photo.is_public"> Public
+                                </label>
+                                <button type="button" class="upload-thumb-remove" @click="photo.removed = true">✕</button>
+                            </div>
+                            <input type="hidden" :name="'removed_' + i" :value="photo.removed ? '1' : '0'">
+                        </div>
+                    </template>
+                </div>
+            </template>
+
+            <div class="form-actions">
+                <button class="button-redzone" type="submit" x-show="photos.length > 0">Uploader</button>
+                <a href="{% url 'album-detail' album.pk %}" class="button-secondary">Annuler</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Formulaire Vidéo -->
+    <form class="upload-form" method="post" x-show="tab === 'video'">
+        {% csrf_token %}
+        <input type="hidden" name="media_type" value="video">
+        <div class="upload-section">
+            <span class="upload-label">URL vidéo</span>
+            <div class="upload-field">
+                {{ video_form.video_url }}
+            </div>
+        </div>
+        <div class="upload-section">
+            <span class="upload-label">Titre</span>
+            <div class="upload-field">
+                {{ video_form.title }}
+            </div>
+        </div>
+        <div class="upload-section">
+            <span class="upload-label">Visibilité</span>
+            <div class="upload-field">
+                <label class="upload-thumb-public">
+                    {{ video_form.is_public }} Visible dans la galerie publique
+                </label>
+            </div>
+        </div>
+        <div class="form-actions">
+            <button class="button-redzone" type="submit">Ajouter</button>
+            <a href="{% url 'album-detail' album.pk %}" class="button-secondary">Annuler</a>
+        </div>
+    </form>
+</div>
+{% endblock content %}

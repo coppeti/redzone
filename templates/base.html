@@ -8,7 +8,7 @@
     <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.png' %}" />
     <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
     <title>{% block title %}{% endblock title %} | Red Zone</title>
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.15.8/dist/cdn.min.js" integrity="sha384-LXWjKwDZz29o7TduNe+r/UxaolHh5FsSvy2W7bDHSZ8jJeGgDeuNnsDNHoxpSgDi" crossorigin="anonymous" defer></script>
     <script src="{% static 'js/carousel.js' %}"></script>
 </head>
 
@@ -18,16 +18,23 @@
         <div class="header-content" x-data="{ open: false }">
             <a href="/" id="logo"><img src="{% static 'img/logo_redzone.png' %}" alt="Logo Red Zone" /></a>
             <button class="burger" @click="open = !open" :class="{ 'active': open }" aria-label="Ouvrir le menu"
-                aria-expanded="false">
+                :aria-expanded="open.toString()">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
             <nav class="menu" :class="{ 'open': open }">
-                <a href=" {% url 'home' %}" class="menu-item {% block home_active %}{% endblock %}">Home</a>
+                <a href="{% url 'home' %}" class="menu-item {% block home_active %}{% endblock %}">Home</a>
                 <a href="{% url 'gallery' %}" class="menu-item {% block gallery_active %}{% endblock %}">Gallery</a>
                 <a href="{% if user.is_authenticated %}{% url 'member-space' %}{% else %}{% url 'redzone' %}{% endif %}"
                     class="menu-item {% block redzone_active %}{% endblock %}">Red Zone</a>
+                {% if user.is_authenticated %}
+                <a href="{% url 'profile' %}" class="menu-item {% block profile_active %}{% endblock %}">Profil</a>
+                <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="menu-item logout-btn">Déconnexion</button>
+                </form>
+                {% endif %}
             </nav>
         </div>
     </header>
@@ -46,7 +53,6 @@
         <div class="separator">&nbsp;&nbsp;|&nbsp;&nbsp;</div>
         <div class="copyright">
             designed and build by puco with ❤️
-        </div>
         </div>
     </footer>
 </body>

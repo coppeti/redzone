@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "main.apps.MainConfig",
     "accounts.apps.AccountsConfig",
+    "gallery.apps.GalleryConfig",
 ]
 
 MIDDLEWARE = [
@@ -131,5 +132,33 @@ MEDIA_ROOT = BASE_DIR / "media"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
+# Email
+EMAIL_BACKEND = config("EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend")
+EMAIL_HOST = config("EMAIL_HOST", default="")
+EMAIL_PORT = config("EMAIL_PORT", default=587, cast=int)
+EMAIL_USE_TLS = config("EMAIL_USE_TLS", default=True, cast=bool)
+EMAIL_HOST_USER = config("EMAIL_HOST_USER", default="")
+EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", default="")
+DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL", default="RedZone <noreply@redzone.ch>")
+
+
+DATA_UPLOAD_MAX_MEMORY_SIZE = 20 * 1024 * 1024  # 20 Mo
+
 LOGIN_URL = "/redzone/"
 LOGIN_REDIRECT_URL = "/membres/"
+LOGOUT_REDIRECT_URL = "/"
+
+
+# Session
+SESSION_COOKIE_AGE = 86400        # 24 heures en secondes
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False  # la session survit à la fermeture du navigateur
+
+
+# Security (production only)
+
+if not DEBUG:
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_HSTS_SECONDS = 31536000
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True

@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% load gallery_tags %}
+
+{% block title %}{{ album.title }}{% endblock title %}
+
+{% block redzone_active %}active{% endblock redzone_active %}
+
+{% block content %}
+<div class="membre-page">
+    <div class="membre-welcome">
+        <h1 class="title">{{ album.title }}</h1>
+        <a href="{% url 'media-upload' album.pk %}" class="button-redzone">Ajouter un média</a>
+    </div>
+<div class="container-membres">
+    {% if album.description %}
+    <p class="album-description">{{ album.description }}</p>
+    {% endif %}
+
+    {% if photos %}
+    <h2 class="section-title">Photos</h2>
+
+    <div class="media-grid" x-ignore>
+        {% for photo in photos %}
+        <div class="media-item" data-url="{{ photo.file.url }}" data-title="{{ photo.title|escapejs }}">
+            <img src="{{ photo.file.url }}" alt="{{ photo.title }}" class="media-thumb">
+            <div class="media-meta">
+                {% if photo.title %}<p class="media-title">{{ photo.title }}</p>{% endif %}
+                <p class="media-info">
+                    {% if photo.is_public %}<span class="badge-public">Public</span>{% else %}<span class="badge-private">Privé</span>{% endif %}
+                    · {{ photo.uploaded_by.nickname|default:photo.uploaded_by.firstname }}
+                </p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Lightbox unique -->
+    <div id="lb" x-ignore style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:1000;align-items:center;justify-content:center;cursor:pointer;">
+        <span style="position:fixed;top:1rem;right:1.5rem;font-size:2rem;color:#ff0000;cursor:pointer;z-index:1001;line-height:1;" id="lb-close">✕</span>
+        <span style="position:fixed;left:1rem;top:50%;transform:translateY(-50%);font-size:4rem;color:#ff0000;cursor:pointer;z-index:1001;line-height:1;user-select:none;" id="lb-prev">&#8249;</span>
+        <div style="display:flex;flex-direction:column;align-items:center;max-width:90vw;max-height:90vh;pointer-events:none;">
+            <img id="lb-img" src="" alt="" style="max-width:100%;max-height:80vh;object-fit:contain;pointer-events:none;">
+            <p id="lb-title" style="color:#fff;margin-top:0.75rem;font-size:1rem;pointer-events:none;"></p>
+        </div>
+        <span style="position:fixed;right:1rem;top:50%;transform:translateY(-50%);font-size:4rem;color:#ff0000;cursor:pointer;z-index:1001;line-height:1;user-select:none;" id="lb-next">&#8250;</span>
+    </div>
+    {% endif %}
+
+    {% if videos %}
+    <h2 class="section-title">Vidéos</h2>
+    <div class="video-list" x-data="{ activeUrl: null }">
+        {% for video in videos %}
+        <div class="video-list-item">
+            <div class="video-list-main">
+                <button class="video-list-title" @click="activeUrl = '{{ video.video_url|embed_url }}'">
+                    {{ video.title|default:video.video_url }}
+                </button>
+                <p class="media-info">
+                    {% if video.is_public %}<span class="badge-public">Public</span>{% else %}<span class="badge-private">Privé</span>{% endif %}
+                    · {{ video.uploaded_by.nickname|default:video.uploaded_by.firstname }}
+                </p>
+            </div>
+        </div>
+        {% endfor %}
+
+        <!-- Modal vidéo -->
+        <div class="video-modal" x-show="activeUrl" x-cloak @click.self="activeUrl = null">
+            <div class="video-modal-inner">
+                <button class="video-modal-close" @click="activeUrl = null">✕</button>
+                <div class="video-modal-player">
+                    <iframe :src="activeUrl" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="border:0; width:100%; height:100%;"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if not photos and not videos %}
+    <p class="empty-state">Aucun média dans cet album. <a href="{% url 'media-upload' album.pk %}" class="link-red">Ajoute le premier !</a></p>
+    {% endif %}
+
+    <div class="back-link">
+        <a href="{% url 'member-space' %}" class="link-red">← Toutes les galeries</a>
+    </div>
+</div>
+</div>
+
+{% if photos %}
+<script>
+(function() {
+    var urls = [], titles = [], idx = 0;
+    var lb = document.getElementById('lb');
+    var lbImg = document.getElementById('lb-img');
+    var lbTitle = document.getElementById('lb-title');
+
+    document.querySelectorAll('.media-item').forEach(function(el, i) {
+        var url = el.getAttribute('data-url');
+        if (!url) return;
+        urls.push(url);
+        titles.push(el.getAttribute('data-title') || '');
+        el.style.cursor = 'pointer';
+        el.addEventListener('click', function(e) { show(i); });
+    });
+
+    function show(i) {
+        idx = i;
+        lbImg.src = urls[i];
+        lbTitle.textContent = titles[i];
+        lb.style.display = 'flex';
+    }
+    function hide() {
+        lb.style.display = 'none';
+        lbImg.src = '';
+    }
+    function move(d) {
+        idx = (idx + d + urls.length) % urls.length;
+        lbImg.src = urls[idx];
+        lbTitle.textContent = titles[idx];
+    }
+
+    document.getElementById('lb-close').addEventListener('click', function(e) { e.stopPropagation(); hide(); });
+    document.getElementById('lb-prev').addEventListener('click', function(e) { e.stopPropagation(); move(-1); });
+    document.getElementById('lb-next').addEventListener('click', function(e) { e.stopPropagation(); move(1); });
+    lb.addEventListener('click', function(e) { if (e.target === lb) hide(); });
+    document.addEventListener('keydown', function(e) {
+        if (lb.style.display !== 'flex') return;
+        if (e.key === 'Escape') hide();
+        if (e.key === 'ArrowLeft') move(-1);
+        if (e.key === 'ArrowRight') move(1);
+    });
+})();
+</script>
+{% endif %}
+
+{% endblock content %}

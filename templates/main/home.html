@@ -27,11 +27,11 @@ active
             @touchend="handleTouchEnd($event)"
             @mousedown="handleMouseDown($event)">
             {% for biker in bikers %}
-            <div class="card" @click="flipCard({{ forloop.counter0 }})">
+            <div class="card" @click="flipCard({{ forloop.counter0 }}, $event)">
                 <div class="card-inner" :class="{ 'flipped': isCardFlipped({{ forloop.counter0 }}) }">
                     <!-- Face avant -->
                     <div class="card-front">
-                        <img src="{{ biker.picture.url }}" alt="{{ biker.nickname}}" class="card-image">
+                        {% if biker.picture %}<img src="{{ biker.picture.url }}" alt="{{ biker.nickname }}" class="card-image">{% endif %}
                     </div>
                     <!-- Face arrière -->
                     <div class="card-back">

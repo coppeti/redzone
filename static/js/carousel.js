@@ -31,7 +31,9 @@ function carousel() {
             const cards = container.querySelectorAll('.card:not(.clone)');
             this.cards = Array.from(cards);
 
-            this.flippedCards = new Array(this.cards.length).fill(false);
+            if (this.flippedCards.length !== this.cards.length) {
+                this.flippedCards = new Array(this.cards.length).fill(false);
+            }
 
             // 1. Dimensions du wrapper à disposition
             this.containerWidth = this.$refs.wrapper.offsetWidth;
@@ -211,15 +213,10 @@ function carousel() {
         },
 
         // ==== flipping gestion ====
-        flipCard(index) {
-            if (
-                event.target
-                    .closest('.card-inner')
-                    .classList.contains('flipping')
-            )
-                return;
+        flipCard(index, $event) {
+            const cardInner = $event.target.closest('.card-inner');
+            if (cardInner.classList.contains('flipping')) return;
 
-            const cardInner = event.target.closest('.card-inner');
             cardInner.classList.add('flipping');
             this.flippedCards[index] = !this.flippedCards[index];
             setTimeout(() => {
@@ -231,76 +228,35 @@ function carousel() {
             return this.flippedCards[index] || false;
         },
 
-        next() {
-            // Trouve l'index de la carte actuellement centrée
+        move(direction) {
             const allCards = this.$refs.track.querySelectorAll('.card');
             const totalCards = allCards.length;
-            const cardCount = this.cards.length;
-            const firstRealIndex = cardCount;
-            const trackLeft = this.offset;
-
-            // Position du centre du carrousel (viewport centré)
             const carouselCenter = this.containerWidth / 2;
 
-            // Recherche l'index DOM de la carte la plus proche du centre
             let bestIndex = 0;
             let bestDelta = Infinity;
             for (let i = 0; i < totalCards; i++) {
-                const cardLeft = allCards[i].offsetLeft + trackLeft;
-                const cardCenter = cardLeft + this.cardWidth / 2;
+                const cardCenter = allCards[i].offsetLeft + this.offset + this.cardWidth / 2;
                 const delta = Math.abs(carouselCenter - cardCenter);
                 if (delta < bestDelta) {
                     bestDelta = delta;
                     bestIndex = i;
                 }
             }
-            // Avance à la carte suivante (dans le flux infini)
-            let nextIndex = bestIndex + 1;
-            if (nextIndex >= totalCards) nextIndex = 0;
 
-            // Recale le carrousel sur le centre de la carte suivante
-            const nextCard = allCards[nextIndex];
-            const nextLeftInTrack = nextCard.offsetLeft;
-            this.offset =
-                this.containerWidth / 2 -
-                (nextLeftInTrack + this.cardWidth / 2);
-            this.updatePosition(true);
+            let targetIndex = bestIndex + direction;
+            if (targetIndex >= totalCards) targetIndex = 0;
+            if (targetIndex < 0) targetIndex = totalCards - 1;
 
-            // Normaliser pour l’infini (si clone)
-            setTimeout(() => this.normalizeForInfinite(), 520); // délai = durée d'anim + petite marge
-        },
-
-        prev() {
-            const allCards = this.$refs.track.querySelectorAll('.card');
-            const totalCards = allCards.length;
-            const cardCount = this.cards.length;
-            const firstRealIndex = cardCount;
-            const trackLeft = this.offset;
-
-            const carouselCenter = this.containerWidth / 2;
-            let bestIndex = 0;
-            let bestDelta = Infinity;
-            for (let i = 0; i < totalCards; i++) {
-                const cardLeft = allCards[i].offsetLeft + trackLeft;
-                const cardCenter = cardLeft + this.cardWidth / 2;
-                const delta = Math.abs(carouselCenter - cardCenter);
-                if (delta < bestDelta) {
-                    bestDelta = delta;
-                    bestIndex = i;
-                }
-            }
-            let prevIndex = bestIndex - 1;
-            if (prevIndex < 0) prevIndex = totalCards - 1;
-
-            const prevCard = allCards[prevIndex];
-            const prevLeftInTrack = prevCard.offsetLeft;
-            this.offset =
-                this.containerWidth / 2 -
-                (prevLeftInTrack + this.cardWidth / 2);
+            const targetCard = allCards[targetIndex];
+            this.offset = carouselCenter - (targetCard.offsetLeft + this.cardWidth / 2);
             this.updatePosition(true);
 
             setTimeout(() => this.normalizeForInfinite(), 520);
         },
+
+        next() { this.move(1); },
+        prev() { this.move(-1); },
     };
 
 

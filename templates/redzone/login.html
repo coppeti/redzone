@@ -15,6 +15,11 @@
     <h1 class="title">La Red Zone est réservée aux membres</h1>
         <form class="form-redzone" method="post" action="{% url 'redzone' %}">
             {% csrf_token %}
+            {% if form.errors %}
+            <div class="form-errors">
+                Adresse email ou mot de passe incorrect.
+            </div>
+            {% endif %}
             <div class="form-row-redzone">
                 <label class="label-redzone" for="id_username">Adresse Email :</label>
                 <input class="input-redzone" type="email" name="username" id="id_username" required>
