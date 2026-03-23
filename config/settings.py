@@ -22,6 +22,12 @@ ALLOWED_HOSTS = config(
     "ALLOWED_HOSTS", cast=lambda v: [s.strip() for s in v.split(",")]
 )
 
+CSRF_TRUSTED_ORIGINS = config(
+    "CSRF_TRUSTED_ORIGINS",
+    default="http://localhost",
+    cast=lambda v: [s.strip() for s in v.split(",")],
+)
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -157,8 +163,9 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = False  # la session survit à la fermeture du 
 # Security (production only)
 
 if not DEBUG:
-    SECURE_SSL_REDIRECT = True
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
     SECURE_HSTS_SECONDS = 31536000
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    # Mettre à True seulement si Django gère lui-même le SSL (pas nginx en proxy)
+    SECURE_SSL_REDIRECT = config("SECURE_SSL_REDIRECT", default=False, cast=bool)
