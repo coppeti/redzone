@@ -25,20 +25,38 @@
     <div x-show="tab === 'photo'" x-data="{
         photos: [],
         addPhotos(e) {
-            Array.from(e.target.files).forEach((file, i) => {
+            Array.from(e.target.files).forEach((file) => {
                 const idx = this.photos.length;
-                this.photos.push({ name: file.name, url: URL.createObjectURL(file), title: '', is_public: false, index: idx });
+                this.photos.push({ file: file, name: file.name, url: URL.createObjectURL(file), title: '', is_public: false, index: idx, removed: false });
             });
+        },
+        async submitForm(e) {
+            e.preventDefault();
+            const form = e.target;
+            const fd = new FormData();
+            fd.append('csrfmiddlewaretoken', form.querySelector('[name=csrfmiddlewaretoken]').value);
+            fd.append('media_type', 'photo');
+            let idx = 0;
+            this.photos.forEach(p => {
+                if (!p.removed) {
+                    fd.append('file', p.file);
+                    fd.append('title_' + idx, p.title || '');
+                    if (p.is_public) fd.append('is_public_' + idx, 'on');
+                    idx++;
+                }
+            });
+            const resp = await fetch(window.location.pathname, { method: 'POST', body: fd });
+            window.location.href = resp.url;
         }
     }">
-        <form method="post" enctype="multipart/form-data" class="upload-form">
+        <form method="post" enctype="multipart/form-data" class="upload-form" @submit="submitForm($event)">
             {% csrf_token %}
             <input type="hidden" name="media_type" value="photo">
 
             <div class="upload-section">
                 <span class="upload-label">Photos (JPG)</span>
                 <div class="upload-field">
-                    <input type="file" name="file" accept=".jpg,.jpeg" multiple class="input-file" @change="addPhotos($event)">
+                    <input type="file" name="file" accept=".jpg,.jpeg,.png,.webp,.heic,.heif" multiple class="input-file" @change="addPhotos($event)">
                 </div>
             </div>
 

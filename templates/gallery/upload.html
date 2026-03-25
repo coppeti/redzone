@@ -12,6 +12,7 @@
         photos: [],
         addPhotos(e) {
             this.photos = Array.from(e.target.files).map(f => ({
+                file: f,
                 preview: URL.createObjectURL(f),
                 title: '',
                 is_public: false,
@@ -23,6 +24,29 @@
         },
         get hasVisiblePhotos() {
             return this.photos.some(p => !p.removed);
+        },
+        async submitForm(e) {
+            if (this.mediaType !== 'photo') return;
+            e.preventDefault();
+            const form = e.target;
+            const fd = new FormData();
+            fd.append('csrfmiddlewaretoken', form.querySelector('[name=csrfmiddlewaretoken]').value);
+            fd.append('media_type', 'photo');
+            const albumSel = form.querySelector('[name=album]');
+            if (albumSel) fd.append('album', albumSel.value);
+            const newAlbum = form.querySelector('[name=new_album_name]');
+            if (newAlbum && newAlbum.value) fd.append('new_album_name', newAlbum.value);
+            let idx = 0;
+            this.photos.forEach(p => {
+                if (!p.removed) {
+                    fd.append('file', p.file);
+                    fd.append('title_' + idx, p.title || '');
+                    if (p.is_public) fd.append('is_public_' + idx, 'on');
+                    idx++;
+                }
+            });
+            const resp = await fetch(window.location.pathname, { method: 'POST', body: fd });
+            window.location.href = resp.url;
         }
      }">
 
@@ -32,7 +56,7 @@
     <div class="form-errors">{% for e in errors %}{{ e }}<br>{% endfor %}</div>
     {% endif %}
 
-    <form class="upload-form" method="post" enctype="multipart/form-data">
+    <form class="upload-form" method="post" enctype="multipart/form-data" @submit="submitForm($event)">
         {% csrf_token %}
 
         <!-- GALERIE -->
@@ -81,10 +105,10 @@
             <div class="upload-section">
                 <span class="upload-label">Fichiers</span>
                 <div class="upload-field">
-                    <input type="file" name="file" multiple accept=".jpg,.jpeg"
+                    <input type="file" name="file" multiple accept=".jpg,.jpeg,.png,.webp,.heic,.heif"
                            x-ref="fileInput" @change="addPhotos($event)"
                            class="upload-file-input">
-                    <p class="upload-hint">JPG uniquement · max 10 Mo par photo · redimensionné à 1920 px</p>
+                    <p class="upload-hint">JPG, PNG, WebP, HEIC · max 20 Mo par photo · redimensionné à 1920 px</p>
                 </div>
             </div>
 

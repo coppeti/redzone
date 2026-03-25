@@ -5,14 +5,18 @@ import uuid
 from django.contrib.auth.decorators import login_required
 from django.core.files.base import ContentFile
 from django.shortcuts import get_object_or_404, redirect, render
+import pillow_heif
 from PIL import Image
+
+pillow_heif.register_heif_opener()
 
 from .forms import AlbumForm, PhotoUploadForm, VideoUploadForm
 from .models import Album, Media
 
 MAX_IMAGE_DIMENSION = 1920
 JPEG_QUALITY = 85
-MAX_PHOTO_MB = 10
+MAX_PHOTO_MB = 20
+ACCEPTED_EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp", ".gif", ".bmp", ".tiff", ".tif", ".heic", ".heif"}
 VIDEO_RE = re.compile(
     r'(youtube\.com/watch\?.*v=|youtu\.be/)[a-zA-Z0-9_-]{11}'
     r'|vimeo\.com/\d+'
@@ -60,11 +64,10 @@ def upload(request):
                     errors.append("Sélectionne au moins une photo.")
                 else:
                     for i, f in enumerate(files):
-                        if request.POST.get(f"removed_{i}") == "1":
-                            continue
                         name = f.name.lower()
-                        if not (name.endswith(".jpg") or name.endswith(".jpeg")):
-                            errors.append(f"« {f.name} » n'est pas un fichier JPG.")
+                        ext = next((e for e in ACCEPTED_EXTENSIONS if name.endswith(e)), None)
+                        if ext is None:
+                            errors.append(f"« {f.name} » : format non supporté (JPG, PNG, WebP…).")
                             continue
                         if f.size > MAX_PHOTO_MB * 1024 * 1024:
                             errors.append(f"« {f.name} » dépasse {MAX_PHOTO_MB} Mo.")
@@ -152,11 +155,10 @@ def media_upload(request, pk):
                 errors.append("Sélectionne au moins une photo.")
             else:
                 for i, f in enumerate(files):
-                    if request.POST.get(f"removed_{i}") == "1":
-                        continue
                     name = f.name.lower()
-                    if not (name.endswith(".jpg") or name.endswith(".jpeg")):
-                        errors.append(f"« {f.name} » n'est pas un fichier JPG.")
+                    ext = next((e for e in ACCEPTED_EXTENSIONS if name.endswith(e)), None)
+                    if ext is None:
+                        errors.append(f"« {f.name} » : format non supporté (JPG, PNG, WebP…).")
                         continue
                     if f.size > MAX_PHOTO_MB * 1024 * 1024:
                         errors.append(f"« {f.name} » dépasse {MAX_PHOTO_MB} Mo.")
