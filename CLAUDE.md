@@ -113,6 +113,60 @@ ALLOWED_HOSTS=127.0.0.1
 - Pas de framework CSS — tout est custom dans `styles.css`
 - Alpine.js est chargé en CDN (pas de bundler)
 
+## Infrastructure de production
+
+- **Serveur** : VPS Hostinger, alias SSH `hostinger-vps01`
+- **Répertoire** : `/home/kingpuco/projects/redzone/`
+- **Stack** : Docker Compose (web + db) + Nginx hôte + Certbot SSL
+- **Containers** : `redzone_web` (Gunicorn:8000), `redzone_db` (PostgreSQL)
+- **Nginx** : tourne sur l'hôte (pas en Docker), config dans `/etc/nginx/sites-enabled/redzoneteam.ch`
+- **SSL** : Let's Encrypt via Certbot
+
+### Volumes Docker
+
+| Volume | Contenu |
+|--------|---------|
+| `postgres_data` | Données PostgreSQL (named volume) |
+| `./media:/app/media` | Fichiers uploadés — bind mount hôte |
+
+> **Important** : pas de `static_volume`. Le bind mount `.:/app` suffit.
+> `collectstatic` lit depuis `static/` et écrit dans `staticfiles/` (servi par nginx hôte).
+
+### Procédure de déploiement
+
+```bash
+ssh hostinger-vps01
+cd /home/kingpuco/projects/redzone
+
+# 1. Récupérer les changements
+git pull
+
+# 2. Collecter les statics (TOUJOURS avec --clear pour forcer la mise à jour)
+docker compose exec web python manage.py collectstatic --noinput --clear
+
+# 3. Appliquer les migrations si besoin
+docker compose exec web python manage.py migrate
+
+# 4. Redémarrer le container web
+docker compose restart web
+```
+
+> **Attention** : `collectstatic` sans `--clear` ne recopie pas les fichiers déjà présents
+> même si leur contenu a changé. Toujours utiliser `--clear` en déploiement.
+
+### Commandes utiles en prod
+
+```bash
+# Logs en temps réel
+docker compose logs -f web
+
+# Shell Django
+docker compose exec web python manage.py shell
+
+# Statut des containers
+docker compose ps
+```
+
 ## Ce qui reste à développer
 
 - Page gallery (placeholder vide pour l'instant)

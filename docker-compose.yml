@@ -1,0 +1,40 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: redzone_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: redzone
+      POSTGRES_USER: redzoneuser
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    networks:
+      - redzone_network
+    restart: unless-stopped
+
+  web:
+    build: .
+    container_name: redzone_web
+    command: gunicorn --bind 0.0.0.0:8000 --workers 3 config.wsgi:application
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+      - ./media:/app/media
+    environment:
+      - DEBUG=False
+      - DATABASE_URL=postgresql://redzoneuser:${DB_PASSWORD}@db:5432/redzone
+      - SECRET_KEY=${SECRET_KEY}
+      - ALLOWED_HOSTS=redzoneteam.ch,www.redzoneteam.ch
+    depends_on:
+      - db
+    networks:
+      - redzone_network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+
+networks:
+  redzone_network:
+    driver: bridge
