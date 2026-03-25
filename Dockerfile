@@ -14,7 +14,8 @@ WORKDIR /app
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
 
 COPY pyproject.toml uv.lock ./
-RUN uv sync --frozen --no-dev
+RUN uv export --frozen --no-dev --no-hashes -o requirements.txt && \
+    pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
@@ -23,4 +24,4 @@ USER django
 
 EXPOSE 8000
 
-CMD [".venv/bin/gunicorn", "--bind", "0.0.0.0:8000", "--workers", "3", "config.wsgi:application"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "3", "config.wsgi:application"]
