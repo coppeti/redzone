@@ -170,6 +170,24 @@ footer {
   z-index: 5;
 }
 
+/* HOME PAGE - full height, no scroll, carousel centered */
+html:has(body.page-home) {
+    height: 100%;
+    overflow: hidden;
+}
+
+body.page-home {
+    height: 100%;
+    overflow: hidden;
+}
+
+body.page-home .main-content {
+    height: calc(100vh - 196px - 30px);
+    min-height: 0;
+    padding-bottom: 0;
+    align-items: center;
+}
+
 /* Carousel */
 .carousel-container {
     position: relative;
@@ -1300,6 +1318,11 @@ footer {
         padding: 40px;
     }
 
+    body.page-home .main-content {
+        height: calc(100vh - 80px - 30px);
+        padding: 0;
+    }
+
     .card-title {
         font-size: 1.6rem;
     }
@@ -1328,6 +1351,14 @@ footer {
     box-sizing: border-box;
     display: block !important;
     overflow: visible !important;
+    }
+
+    body.page-home .main-content {
+        display: flex !important;
+        height: calc(100vh - 80px - 30px) !important;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+        align-items: center;
     }
 
     .header-content {
@@ -1420,6 +1451,11 @@ footer {
 @media (max-width: 480px) {
     .main-content {
         padding: 15px;
+    }
+
+    body.page-home .main-content {
+        height: calc(100vh - 60px - 30px) !important;
+        padding: 0 !important;
     }
 
     .header-content {
