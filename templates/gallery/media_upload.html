@@ -39,7 +39,7 @@
             let idx = 0;
             this.photos.forEach(p => {
                 if (!p.removed) {
-                    fd.append('file', p.file);
+                    fd.append('file', Alpine.raw(p.file));
                     fd.append('title_' + idx, p.title || '');
                     if (p.is_public) fd.append('is_public_' + idx, 'on');
                     idx++;
