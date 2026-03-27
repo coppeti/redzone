@@ -39,9 +39,9 @@
             this.photos.forEach((p, i) => {
                 if (!p.removed) {
                     dt.items.add(Alpine.raw(p.file));
-                    const t = form.querySelector('[name="title_' + i + '"]');
+                    const t = form.querySelector('[name=title_' + i + ']');
                     if (t) t.name = 'title_' + newIdx;
-                    const pub = form.querySelector('[name="is_public_' + i + '"]');
+                    const pub = form.querySelector('[name=is_public_' + i + ']');
                     if (pub) pub.name = 'is_public_' + newIdx;
                     newIdx++;
                 }
