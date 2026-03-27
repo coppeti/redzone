@@ -25,28 +25,25 @@
         get hasVisiblePhotos() {
             return this.photos.some(p => !p.removed);
         },
-        async submitForm(e) {
+        submitForm(e) {
             if (this.mediaType !== 'photo') return;
             e.preventDefault();
             const form = e.target;
-            const fd = new FormData();
-            fd.append('csrfmiddlewaretoken', form.querySelector('[name=csrfmiddlewaretoken]').value);
-            fd.append('media_type', 'photo');
-            const albumSel = form.querySelector('[name=album]');
-            if (albumSel) fd.append('album', albumSel.value);
-            const newAlbum = form.querySelector('[name=new_album_name]');
-            if (newAlbum && newAlbum.value) fd.append('new_album_name', newAlbum.value);
-            let idx = 0;
-            this.photos.forEach(p => {
+            const fileInput = form.querySelector('input[name=file]');
+            const dt = new DataTransfer();
+            let newIdx = 0;
+            this.photos.forEach((p, i) => {
                 if (!p.removed) {
-                    fd.append('file', Alpine.raw(p.file));
-                    fd.append('title_' + idx, p.title || '');
-                    if (p.is_public) fd.append('is_public_' + idx, 'on');
-                    idx++;
+                    dt.items.add(p.file);
+                    const t = form.querySelector('[name="title_' + i + '"]');
+                    if (t) t.name = 'title_' + newIdx;
+                    const pub = form.querySelector('[name="is_public_' + i + '"]');
+                    if (pub) pub.name = 'is_public_' + newIdx;
+                    newIdx++;
                 }
             });
-            const resp = await fetch(window.location.pathname, { method: 'POST', body: fd });
-            window.location.href = resp.url;
+            fileInput.files = dt.files;
+            form.submit();
         }
      }">
 
