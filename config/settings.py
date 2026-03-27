@@ -153,6 +153,8 @@ DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL", default="RedZone <noreply@redz
 
 DATA_UPLOAD_MAX_MEMORY_SIZE = 20 * 1024 * 1024  # 20 Mo
 
+SITE_URL = config("SITE_URL", default="")
+
 LOGIN_URL = "/redzone/"
 LOGIN_REDIRECT_URL = "/membres/"
 LOGOUT_REDIRECT_URL = "/"

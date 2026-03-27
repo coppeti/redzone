@@ -2,6 +2,7 @@ import re
 from urllib.parse import unquote
 
 from django import template
+from django.conf import settings
 
 register = template.Library()
 
@@ -17,7 +18,9 @@ def embed_url(url):
     # YouTube: https://www.youtube.com/watch?v=ID or https://youtu.be/ID
     yt_match = re.search(r"(?:youtube\.com/watch\?v=|youtu\.be/)([a-zA-Z0-9_-]{11})", decoded)
     if yt_match:
-        return f"https://www.youtube-nocookie.com/embed/{yt_match.group(1)}"
+        origin = getattr(settings, "SITE_URL", "")
+        origin_param = f"?origin={origin}" if origin else ""
+        return f"https://www.youtube-nocookie.com/embed/{yt_match.group(1)}{origin_param}"
 
     # Vimeo: https://vimeo.com/ID
     vimeo_match = re.search(r"vimeo\.com/(\d+)", decoded)
