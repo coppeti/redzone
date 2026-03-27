@@ -17,7 +17,7 @@ def embed_url(url):
     # YouTube: https://www.youtube.com/watch?v=ID or https://youtu.be/ID
     yt_match = re.search(r"(?:youtube\.com/watch\?v=|youtu\.be/)([a-zA-Z0-9_-]{11})", decoded)
     if yt_match:
-        return f"https://www.youtube.com/embed/{yt_match.group(1)}"
+        return f"https://www.youtube-nocookie.com/embed/{yt_match.group(1)}"
 
     # Vimeo: https://vimeo.com/ID
     vimeo_match = re.search(r"vimeo\.com/(\d+)", decoded)
