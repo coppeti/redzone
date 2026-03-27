@@ -163,6 +163,23 @@ SESSION_COOKIE_AGE = 86400        # 24 heures en secondes
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False  # la session survit à la fermeture du navigateur
 
 
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+        },
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["console"],
+            "level": "ERROR",
+        },
+    },
+}
+
+
 # Security (production only)
 
 if not DEBUG:
