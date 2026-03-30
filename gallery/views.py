@@ -13,8 +13,8 @@ pillow_heif.register_heif_opener()
 from .forms import AlbumForm, PhotoUploadForm, VideoUploadForm
 from .models import Album, Media
 
-MAX_IMAGE_DIMENSION = 1920
-JPEG_QUALITY = 85
+MAX_IMAGE_DIMENSION = 768
+MAX_PHOTO_BYTES = 250 * 1024  # 250 Ko
 MAX_PHOTO_MB = 20
 ACCEPTED_EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp", ".gif", ".bmp", ".tiff", ".tif", ".heic", ".heif"}
 VIDEO_RE = re.compile(
@@ -30,8 +30,13 @@ def _process_image(uploaded_file):
         img = img.convert("RGB")
     if img.width > MAX_IMAGE_DIMENSION or img.height > MAX_IMAGE_DIMENSION:
         img.thumbnail((MAX_IMAGE_DIMENSION, MAX_IMAGE_DIMENSION), Image.LANCZOS)
-    buf = io.BytesIO()
-    img.save(buf, format="JPEG", quality=JPEG_QUALITY, optimize=True)
+    quality = 85
+    while quality >= 30:
+        buf = io.BytesIO()
+        img.save(buf, format="JPEG", quality=quality, optimize=True)
+        if buf.tell() <= MAX_PHOTO_BYTES:
+            break
+        quality -= 5
     buf.seek(0)
     return ContentFile(buf.read())
 
