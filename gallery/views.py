@@ -15,7 +15,7 @@ from .models import Album, Media
 
 MAX_IMAGE_DIMENSION = 768
 MAX_PHOTO_BYTES = 250 * 1024  # 250 Ko
-MAX_PHOTO_MB = 20
+MAX_PHOTO_MB = 200
 ACCEPTED_EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp", ".gif", ".bmp", ".tiff", ".tif", ".heic", ".heif"}
 VIDEO_RE = re.compile(
     r'(youtube\.com/watch\?.*v=|youtu\.be/)[a-zA-Z0-9_-]{11}'
