@@ -30,5 +30,5 @@ class AlbumAdmin(admin.ModelAdmin):
 @admin.register(Media)
 class MediaAdmin(admin.ModelAdmin):
     list_display = ("__str__", "album", "media_type", "uploaded_by", "is_public", file_size, "uploaded_at")
-    list_filter = ("media_type", "is_public")
+    list_filter = ("album", "media_type", "is_public")
     search_fields = ("title",)
