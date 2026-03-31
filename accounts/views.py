@@ -6,7 +6,7 @@ from gallery.models import Album
 
 @login_required
 def member_space(request):
-    albums = Album.objects.all()
+    albums = Album.objects.all().order_by("-created_at")
     return render(request, "redzone/member_space.html", {"albums": albums})
 
 

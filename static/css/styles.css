@@ -640,9 +640,9 @@ body.page-home .main-content {
 /* GALLERY LIST */
 
 .gallery-list {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
     margin-top: 1.5rem;
 }
 
@@ -655,24 +655,18 @@ body.page-home .main-content {
     position: relative;
     padding: 0.4rem 0;
     width: fit-content;
-    margin: 0 auto;
     transition: text-shadow 0.3s ease;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 100%;
 }
 
 .gallery-list-item::after {
     content: '';
     position: absolute;
     bottom: 0;
-    left: 50%;
+    left: 0;
     width: 0;
     height: 2px;
     background-color: #ff0000;
     transition: all 0.3s ease;
-    transform: translateX(-50%);
 }
 
 .gallery-list-item:hover::after {

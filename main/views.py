@@ -11,7 +11,7 @@ def home(request):
 
 def gallery(request):
     from gallery.models import Album
-    albums = Album.objects.filter(medias__is_public=True).distinct().order_by("title")
+    albums = Album.objects.filter(medias__is_public=True).distinct().order_by("-created_at")
     return render(request, "main/gallery.html", {"albums": albums})
 
 
