@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.files.base import ContentFile
 from django.shortcuts import get_object_or_404, redirect, render
 import pillow_heif
-from PIL import Image
+from PIL import Image, ImageOps
 
 pillow_heif.register_heif_opener()
 
@@ -26,6 +26,7 @@ VIDEO_RE = re.compile(
 
 def _process_image(uploaded_file):
     img = Image.open(uploaded_file)
+    img = ImageOps.exif_transpose(img)
     if img.mode != "RGB":
         img = img.convert("RGB")
     if img.width > MAX_IMAGE_DIMENSION or img.height > MAX_IMAGE_DIMENSION:
